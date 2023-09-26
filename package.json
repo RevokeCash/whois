@@ -1,0 +1,35 @@
+{
+  "name": "@revoke.cash/whois",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:RevokeCash/whois.git",
+  "author": "Rosco Kalis <roscokalis@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "update:tokens:erc20": "ts-node ./scripts/tokens/update-erc20-tokens.ts",
+    "update:tokens:nft": "ts-node ./scripts/tokens/update-nft-tokens.ts",
+    "update:tokens:spam": "ts-node ./scripts/tokens/update-spam-tokens.ts",
+    "update:tokens:manual": "ts-node ./scripts/tokens/copy-manual-tokens.ts",
+    "update:tokens": "yarn update:tokens:erc20 && yarn update:tokens:nft && yarn update:tokens:spam && yarn update:tokens:manual",
+    "update:spenders:github": "ts-node ./scripts/spenders/update-github-spenders.ts",
+    "update:spenders:universal": "ts-node ./scripts/spenders/update-universal-spenders.ts",
+    "update:spenders:manual": "ts-node ./scripts/spenders/copy-manual-spenders.ts",
+    "update:spenders": "yarn update:spenders:github && yarn update:spenders:universal && yarn update:spenders:manual",
+    "update:all": "yarn update:tokens && yarn update:spenders && yarn lint:checksums",
+    "lint:checksums": "ts-node ./scripts/lint-checksums.ts"
+  },
+  "devDependencies": {
+    "@revoke.cash/chains": "^17.0.0",
+    "@types/node": "^20.7.0",
+    "dotenv": "^16.3.1",
+    "husky": "^8.0.3",
+    "lint-staged": "^14.0.1",
+    "prettier": "^3.0.3",
+    "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.2.2",
+    "viem": "^1.12.2",
+    "walkdir": "^0.4.1"
+  },
+  "packageManager": "yarn@3.6.3"
+}
