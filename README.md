@@ -8,8 +8,8 @@ This repository contains a list of token data and contract/spender data. The dat
 
 Contributions are very welcome! You can add a new manual label by creating a new file under `data/manual/spenders` with the following format:
 
+`data/manual/spenders/<chainId>/<contractAddress>.json`
 ```json
-// data/manual/spenders/<chainId>/<contractAddress>.json
 {
   "name": "Name of the protocol this contract belongs to",
   "label": "Label of what this specific contract is",
