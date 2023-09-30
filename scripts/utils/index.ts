@@ -74,7 +74,7 @@ export const sanitiseTokenData = (token: TokenData) => {
   return {
     symbol: token.symbol,
     decimals: token.decimals,
-    logoURI: logoOverrides[token.symbol] || token.logoURI?.replace('/thumb/', '/small/')?.replace('w=500', 'w=32'),
+    logoURI: logoOverrides[token.symbol] || token.logoURI?.replace('/thumb/', '/small/')?.replace('w=500', 'w=32')?.replace('ipfs://', 'https://ipfs.io/ipfs/'),
     isSpam: token.isSpam,
   };
 };
