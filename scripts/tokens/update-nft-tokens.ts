@@ -1,6 +1,6 @@
 import { Address, getAddress } from 'viem';
-import { TokenData } from '../utils/types';
 import { sleep, writeData } from '../utils';
+import { TokenData } from '../utils/types';
 
 // Inspired by https://github.com/verynifty/RolodETH/blob/main/sources/reservoir/index.js
 
@@ -54,7 +54,11 @@ const updateNftTokenlist = async () => {
   }
 
   // Merge with the existing mapping and write to file (prefer the new data)
-  await Promise.all(Object.entries(retrievedMapping).map(([address, token]) => writeData('generated', 'tokens', 1, address as Address, token)));
+  await Promise.all(
+    Object.entries(retrievedMapping).map(([address, token]) =>
+      writeData('generated', 'tokens', 1, address as Address, token),
+    ),
+  );
 };
 
 updateNftTokenlist();

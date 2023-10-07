@@ -1,19 +1,19 @@
+import { mkdir, readFile, writeFile } from 'fs/promises';
 import path from 'path';
 import { Address, getAddress } from 'viem';
+import walkdir from 'walkdir';
 import { DATA_BASE_PATH } from './constants';
 import { AddressType, Data, DataType, ParsedPath, SpenderData, TokenData } from './types';
-import { mkdir, readFile, writeFile } from 'fs/promises';
-import walkdir from 'walkdir';
 
 export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export const getDataPath = (dataType: DataType, addressType: AddressType, chainId: number, address: Address) => {
   return path.join(getDataDirectoryPath(dataType, addressType, chainId), `${getAddress(address)}.json`);
-}
+};
 
 export const getDataDirectoryPath = (dataType: DataType, addressType: AddressType, chainId: number) => {
   return path.join(DATA_BASE_PATH, dataType, addressType, String(chainId));
-}
+};
 
 export const parsePath = (filePath: string): ParsedPath => {
   if (!path.isAbsolute(filePath)) throw new Error('Path must be absolute');
@@ -29,13 +29,26 @@ export const parsePath = (filePath: string): ParsedPath => {
     chainId: Number(chainId),
     address: getAddress(address),
   };
-}
+};
 
-export const readData = async <T extends AddressType>(dataType: DataType, addressType: T, chainId: number, address: Address): Promise<Data<T>> => {
-  return readFile(getDataPath(dataType, addressType, chainId, address), 'utf-8').then((contents) => JSON.parse(contents)).catch(() => undefined);
-}
+export const readData = async <T extends AddressType>(
+  dataType: DataType,
+  addressType: T,
+  chainId: number,
+  address: Address,
+): Promise<Data<T>> => {
+  return readFile(getDataPath(dataType, addressType, chainId, address), 'utf-8')
+    .then((contents) => JSON.parse(contents))
+    .catch(() => undefined);
+};
 
-export const writeData = async <T extends AddressType>(dataType: DataType, addressType: T, chainId: number, address: Address, data: Data<T>) => {
+export const writeData = async <T extends AddressType>(
+  dataType: DataType,
+  addressType: T,
+  chainId: number,
+  address: Address,
+  data: Data<T>,
+) => {
   const directoryPath = getDataDirectoryPath(dataType, addressType, chainId);
   const dataPath = getDataPath(dataType, addressType, chainId, address);
   await mkdir(directoryPath, { recursive: true });
@@ -48,7 +61,7 @@ export const writeData = async <T extends AddressType>(dataType: DataType, addre
     await sleep(1000);
     await writeData(dataType, addressType, chainId, address, data);
   }
-}
+};
 
 export const sanitiseData = <T extends AddressType>(addressType: T, data: Data<T>): Data<T> => {
   if (addressType === 'tokens') {
@@ -56,7 +69,7 @@ export const sanitiseData = <T extends AddressType>(addressType: T, data: Data<T
   }
 
   return sanitiseSpenderData(data as SpenderData) as Data<T>;
-}
+};
 
 export const sanitiseTokenData = (token: TokenData) => {
   // Override USDT and WETH logos
@@ -74,11 +87,15 @@ export const sanitiseTokenData = (token: TokenData) => {
   return {
     symbol: token.symbol,
     decimals: token.decimals,
-    logoURI: logoOverrides[token.symbol] || token.logoURI?.replace('/thumb/', '/small/')?.replace('w=500', 'w=32')?.replace('ipfs://', 'https://ipfs.io/ipfs/'),
+    logoURI:
+      logoOverrides[token.symbol] ||
+      token.logoURI
+        ?.replace('/thumb/', '/small/')
+        ?.replace('w=500', 'w=32')
+        ?.replace('ipfs://', 'https://ipfs.io/ipfs/'),
     isSpam: token.isSpam,
   };
 };
-
 
 export const sanitiseSpenderData = (spender: SpenderData) => {
   return {
@@ -89,11 +106,13 @@ export const sanitiseSpenderData = (spender: SpenderData) => {
 };
 
 export const copyManualData = async (addressType: AddressType) => {
-  const paths = await walkdir.async(path.join(DATA_BASE_PATH, 'manual', addressType))
+  const paths = await walkdir.async(path.join(DATA_BASE_PATH, 'manual', addressType));
   const dataPaths = paths.filter((path) => path.endsWith('.json'));
-  await Promise.all(dataPaths.map(async (dataPath) => {
-    const { addressType, chainId, address } = parsePath(dataPath);
-    const data = await readData('manual', addressType, chainId, address);
-    await writeData('generated', addressType, chainId, address, data);
-  }));
-}
+  await Promise.all(
+    dataPaths.map(async (dataPath) => {
+      const { addressType, chainId, address } = parsePath(dataPath);
+      const data = await readData('manual', addressType, chainId, address);
+      await writeData('generated', addressType, chainId, address, data);
+    }),
+  );
+};

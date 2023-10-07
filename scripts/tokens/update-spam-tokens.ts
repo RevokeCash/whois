@@ -1,8 +1,7 @@
 import { ChainId } from '@revoke.cash/chains';
-import { ALCHEMY_API_KEY } from '../utils/constants';
 import { Address } from 'viem';
 import { writeData } from '../utils';
-
+import { ALCHEMY_API_KEY } from '../utils/constants';
 
 const updateSpamTokens = async () => {
   console.log('Updating spam tokens');
@@ -15,8 +14,8 @@ const updateSpamTokens = async () => {
 
 const updateSpamTokensForChain = async (chainId: number) => {
   const urls = {
-    [ChainId.EthereumMainnet]: `https://eth-mainnet.g.alchemy.com/nft/v2/${ALCHEMY_API_KEY}/getSpamContracts`,
-    [ChainId.PolygonMainnet]: `https://polygon-mainnet.g.alchemy.com/nft/v2/${ALCHEMY_API_KEY}/getSpamContracts`,
+    [ChainId.EthereumMainnet]: `https://eth-mainnet.g.alchemy.com/nft/v3/${ALCHEMY_API_KEY}/getSpamContracts`,
+    [ChainId.PolygonMainnet]: `https://polygon-mainnet.g.alchemy.com/nft/v3/${ALCHEMY_API_KEY}/getSpamContracts`,
   };
 
   const res = await fetch(urls[chainId]);
@@ -25,7 +24,7 @@ const updateSpamTokensForChain = async (chainId: number) => {
     throw new Error(`Failed to fetch spam tokens for chain ${chainId}`);
   }
 
-  const spamTokens: Address[] = await res.json();
+  const { contractAddresses: spamTokens }: { contractAddresses: Address[] } = await res.json();
 
   await Promise.all(spamTokens.map((address) => writeData('generated', 'tokens', chainId, address, { isSpam: true })));
 };

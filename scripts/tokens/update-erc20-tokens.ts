@@ -1,8 +1,8 @@
-import { Address, getAddress, isAddress } from 'viem';
 import { ChainId, chains } from '@revoke.cash/chains';
-import { TokenData, TokenMapping } from '../utils/types';
-import { allChainIds } from 'scripts/utils/constants';
 import { sleep, writeData } from 'scripts/utils';
+import { allChainIds } from 'scripts/utils/constants';
+import { Address, getAddress, isAddress } from 'viem';
+import { TokenData, TokenMapping } from '../utils/types';
 
 const isEmpty = (obj?: any) => Object.keys(obj ?? {}).length === 0;
 
@@ -68,7 +68,10 @@ const getTokenList = async (url: string, chainId?: number) => {
   const res = await fetch(url).then((res) => res.json());
 
   if (res.tokens) {
-    return res.tokens.map((token: any) => ({ ...token, chainId: chainId ?? token.chainId }));
+    return res.tokens.map((token: any) => ({
+      ...token,
+      chainId: chainId ?? token.chainId,
+    }));
   }
 
   return [];
@@ -143,7 +146,6 @@ const writeToken = async (token: TokenData, address: Address, chainId: number) =
   await writeData('generated', 'tokens', chainId, address, token);
 };
 
-
 const updateErc20Tokenlist = async () => {
   console.log('Updating ERC20 tokens');
 
@@ -158,7 +160,9 @@ const updateErc20Tokenlist = async () => {
 
     console.log(chainString, `Found ${Object.keys(mapping).length} tokens`);
 
-    await Promise.all(Object.entries(mapping).map(([address, token]) => writeToken(token, address as Address, chainId)));
+    await Promise.all(
+      Object.entries(mapping).map(([address, token]) => writeToken(token, address as Address, chainId)),
+    );
 
     // Wait for rate limiting (50/min)
     await sleep(2000);

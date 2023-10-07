@@ -24,9 +24,10 @@ Besides these external sources, we also have a list of manual labels that we use
 Contributions are very welcome! You can add a new manual label by creating a new file under `data/manual/spenders` with the following format:
 
 `data/manual/spenders/<chainId>/<contractAddress>.json`
+
 ```json
 {
   "name": "Name of the protocol this contract belongs to",
-  "label": "Label of what this specific contract is",
+  "label": "Label of what this specific contract is"
 }
 ```

@@ -1,6 +1,6 @@
 import { Address } from 'viem';
-import { allChainIds } from '../utils/constants';
 import { writeData } from '../utils';
+import { allChainIds } from '../utils/constants';
 import { SpenderData } from '../utils/types';
 
 // Universal Spenders should be added to every chain (e.g. Permit2)
