@@ -75,4 +75,6 @@ const importFromEthereumLists = async (): Promise<void> => {
   console.log('GitHub repository removed.');
 };
 
-importFromEthereumLists();
+// This repo hasn't been updated for 1y+, so to save time, we just won't update it - we can manually change this if we
+// notice any changes in the repo
+// importFromEthereumLists();
