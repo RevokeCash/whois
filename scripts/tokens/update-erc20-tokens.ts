@@ -103,6 +103,19 @@ const tokenlistPromise = Promise.all([
     '/etherspot/etherspot-popular-tokens-tokenlist/ceb93ecae050b100069d912339307c8acf63153a/multichain.tokenlist.json',
   ),
   getTokenList('/elkfinance/tokens/c205c0d68a8a2d0052c17207d5440ac934b150fa/all.tokenlist.json'),
+  fetch('https://raw.githubusercontent.com/izumiFinance/izumi-tokenList/main/build/tokenList.json')
+    .then((res) => res.json())
+    .then((res => res.flatMap(
+      (token: any) => (
+        token.chains.map((chainId) => ({
+          symbol: token.symbol,
+          address: token.contracts[chainId].address,
+          decimals: token.contracts[chainId].decimal,
+          logoURI: token.icon,
+          chainId,
+        }))
+      )
+    ))),
   fetch('https://raw.githubusercontent.com/viaprotocol/tokenlists/main/all_tokens/all.json')
     .then((res) => res.json())
     .then((res) => Object.values(res).flat()),
