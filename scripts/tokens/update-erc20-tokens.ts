@@ -84,25 +84,22 @@ const getTokenList = async (url: string, chainId?: number) => {
 const tokenlistPromise = Promise.all([
   getTokenList('/map3xyz/wanchain-tokenlist/master/tokenlist.json', ChainId.Wanchain),
   getTokenList('/kardiachain/token-assets/master/tokens/mobile-list.json', ChainId.KardiaChainMainnet),
-  getTokenList(
-    '/yodedex/yodeswap-default-tokenlist/696cafc9a9cba70e6617ec3439cd7ef76d2052dd/yodeswap.tokenlist.json',
-    ChainId.DogechainMainnet,
-  ),
-  getTokenList('/CoinTool-App/cdn/d5f27f04269a0ccc1d9252510ed699b80744f3c8/json/dogechain.json'),
-  getTokenList('/CoinTool-App/cdn/d5f27f04269a0ccc1d9252510ed699b80744f3c8/json/heco.json'),
-  getTokenList('/CoinTool-App/cdn/d5f27f04269a0ccc1d9252510ed699b80744f3c8/json/movr.json'),
-  getTokenList('/CoinTool-App/cdn/d5f27f04269a0ccc1d9252510ed699b80744f3c8/json/onus.json'),
+  getTokenList('/yodedex/yodeswap-default-tokenlist/main/yodeswap.tokenlist.json', ChainId.DogechainMainnet),
+  getTokenList('/CoinTool-App/cdn/main/json/dogechain.json'),
+  getTokenList('/CoinTool-App/cdn/main/json/heco.json'),
+  getTokenList('/CoinTool-App/cdn/main/json/movr.json'),
+  getTokenList('/CoinTool-App/cdn/main/json/onus.json'),
   getTokenList('/BeamSwap/exosama-tokenlist/main/tokenlist.json'),
   getTokenList('https://unpkg.com/@1hive/default-token-list@5.17.1/build/honeyswap-default.tokenlist.json'),
   getTokenList('https://unpkg.com/quickswap-default-token-list@1.0.91/build/quickswap-default.tokenlist.json'),
   getTokenList('/Ubeswap/default-token-list/master/ubeswap.token-list.json'),
   getTokenList('/DefiKingdoms/community-token-list/main/src/defikingdoms-default.tokenlist.json'),
-  getTokenList('/syscoin/syscoin-rollux.github.io/c7a99fa23f7d51b6afc3f2683e999b3e51532c22/rollux.tokenlist.json'),
-  getTokenList('/nahmii-community/bridge/4ae719bcac44377952f6a18710d619821d772459/src/nahmii.tokenlist.json'),
+  getTokenList('/syscoin/syscoin-rollux.github.io/master/rollux.tokenlist.json'),
+  getTokenList('/nahmii-community/bridge/main/src/nahmii.tokenlist.json'),
   getTokenList(
-    '/etherspot/etherspot-popular-tokens-tokenlist/ceb93ecae050b100069d912339307c8acf63153a/multichain.tokenlist.json',
+    '/etherspot/etherspot-popular-tokens-tokenlist/master/multichain.tokenlist.json',
   ),
-  getTokenList('/elkfinance/tokens/c205c0d68a8a2d0052c17207d5440ac934b150fa/all.tokenlist.json'),
+  getTokenList('/elkfinance/tokens/main/all.tokenlist.json'),
   fetch('https://raw.githubusercontent.com/izumiFinance/izumi-tokenList/main/build/tokenList.json')
     .then((res) => res.json())
     .then((res => res.flatMap(
@@ -119,6 +116,7 @@ const tokenlistPromise = Promise.all([
   fetch('https://raw.githubusercontent.com/viaprotocol/tokenlists/main/all_tokens/all.json')
     .then((res) => res.json())
     .then((res) => Object.values(res).flat()),
+  getTokenList('/scroll-tech/token-list/main/scroll.tokenlist.json'),
   getTokenList('/pangolindex/tokenlists/main/pangolin.tokenlist.json'),
   getTokenList('https://static.optimism.io/optimism.tokenlist.json'),
   getTokenList('https://tokens.uniswap.org'),
