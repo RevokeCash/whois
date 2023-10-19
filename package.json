@@ -20,7 +20,7 @@
     "postinstall": "git config --local include.path ../.gitconfig"
   },
   "devDependencies": {
-    "@revoke.cash/chains": "^17.0.0",
+    "@revoke.cash/chains": "^19.0.0",
     "@types/node": "^20.7.0",
     "dotenv": "^16.3.1",
     "husky": "^8.0.3",
