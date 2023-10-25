@@ -99,23 +99,21 @@ const tokenlistPromise = Promise.all([
   getTokenList('/DefiKingdoms/community-token-list/main/src/defikingdoms-default.tokenlist.json'),
   getTokenList('/syscoin/syscoin-rollux.github.io/master/rollux.tokenlist.json'),
   getTokenList('/nahmii-community/bridge/main/src/nahmii.tokenlist.json'),
-  getTokenList(
-    '/etherspot/etherspot-popular-tokens-tokenlist/master/multichain.tokenlist.json',
-  ),
+  getTokenList('/etherspot/etherspot-popular-tokens-tokenlist/master/multichain.tokenlist.json'),
   getTokenList('/elkfinance/tokens/main/all.tokenlist.json'),
   fetch('https://raw.githubusercontent.com/izumiFinance/izumi-tokenList/main/build/tokenList.json')
     .then((res) => res.json())
-    .then((res => res.flatMap(
-      (token: any) => (
+    .then((res) =>
+      res.flatMap((token: any) =>
         token.chains.map((chainId) => ({
           symbol: token.symbol,
           address: token.contracts[chainId].address,
           decimals: token.contracts[chainId].decimal,
           logoURI: token.icon,
           chainId,
-        }))
-      )
-    ))),
+        })),
+      ),
+    ),
   fetch('https://raw.githubusercontent.com/viaprotocol/tokenlists/main/all_tokens/all.json')
     .then((res) => res.json())
     .then((res) => Object.values(res).flat()),
