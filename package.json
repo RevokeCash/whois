@@ -15,8 +15,10 @@
     "update:spenders:universal": "ts-node ./scripts/spenders/update-universal-spenders.ts",
     "update:spenders:manual": "ts-node ./scripts/spenders/copy-manual-spenders.ts",
     "update:spenders": "yarn update:spenders:github && yarn update:spenders:universal && yarn update:spenders:manual",
-    "update:all": "yarn update:tokens && yarn update:spenders && yarn lint:checksums",
+    "update:all": "yarn update:tokens && yarn update:spenders && yarn lint",
     "lint:checksums": "ts-node ./scripts/lint-checksums.ts",
+    "lint:prettier": "prettier -uw .",
+    "lint": "yarn lint:prettier && yarn lint:checksums",
     "postinstall": "git config --local include.path ../.gitconfig"
   },
   "devDependencies": {
