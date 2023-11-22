@@ -59,7 +59,7 @@ const writeContract = async (address: Address, data: any, projects: Record<strin
 };
 
 const importFromEthereumLists = async (): Promise<void> => {
-  console.log('Updating github spenders');
+  console.log('Updating ethereum-lists github spenders');
 
   execSync(`rm -rf ${CLONE_PATH}`);
   execSync(`git clone ${CLONE_REPO} ${CLONE_PATH}`);
