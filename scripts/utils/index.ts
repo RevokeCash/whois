@@ -1,10 +1,10 @@
+import { PutObjectCommand, PutObjectCommandInput, S3Client } from '@aws-sdk/client-s3';
 import { mkdir, readFile, writeFile } from 'fs/promises';
 import path from 'path';
 import { Address, getAddress } from 'viem';
 import walkdir from 'walkdir';
 import { DATA_BASE_PATH } from './constants';
 import { AddressType, Data, DataType, ParsedPath, SpenderData, TokenData } from './types';
-import { PutObjectCommand, PutObjectCommandInput, S3Client } from '@aws-sdk/client-s3';
 
 export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -39,7 +39,7 @@ export const readData = async <T extends AddressType>(
   address: Address,
 ): Promise<Data<T>> => {
   try {
-    const rawData = await readFile(getDataPath(dataType, addressType, chainId, address), 'utf-8')
+    const rawData = await readFile(getDataPath(dataType, addressType, chainId, address), 'utf-8');
     return JSON.parse(rawData);
   } catch {
     await sleep(1000);
@@ -102,7 +102,7 @@ export const uploadData = async <T extends AddressType>(
   }
 
   console.log('Uploaded', relativeDataPath);
-}
+};
 
 export const sanitiseData = <T extends AddressType>(addressType: T, data: Data<T>): Data<T> => {
   if (addressType === 'tokens') {

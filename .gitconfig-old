@@ -1,0 +1,5 @@
+[feature]
+	manyFiles = true
+[core]
+	fsmonitor = true
+	untrackedcache = true
