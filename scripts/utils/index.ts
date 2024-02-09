@@ -93,6 +93,7 @@ export const uploadData = async <T extends AddressType>(
     await s3Client.send(new PutObjectCommand(params));
   } catch (e) {
     // for some reason, upload fails sometimes with ENOTFOUND
+    console.log('ERROR', e.code, e.message, e);
     if (e.code.includes('ENOTFOUND')) {
       await sleep(1000);
       await uploadData(s3Client, bucket, dataType, addressType, chainId, address, data);
@@ -133,7 +134,9 @@ export const sanitiseTokenData = (token: TokenData) => {
       token.logoURI
         ?.replace('/thumb/', '/small/')
         ?.replace('w=500', 'w=32')
-        ?.replace('ipfs://', 'https://ipfs.io/ipfs/'),
+        ?.replace('ipfs://', 'https://ipfs.io/ipfs/')
+        ?.replace(/\.png\?.+/i, '.png')
+        ?.replace(/\.jpg\?.+/i, '.jpg'),
     isSpam: token.isSpam,
   };
 };

@@ -31,10 +31,7 @@ const getTokenMappingFromCoinGecko = async (chainId: number): Promise<TokenMappi
     const tokenMapping = {};
     for (const token of tokens) {
       if (!isAddress(token.address)) continue;
-      tokenMapping[getAddress(token.address)] = {
-        ...token,
-        logoURI: token?.logoURI?.replace(/\.png\?.+/i, '.png')?.replace(/\.jpg\?.+/i, '.jpg'),
-      };
+      tokenMapping[getAddress(token.address)] = token;
     }
 
     return tokenMapping;
