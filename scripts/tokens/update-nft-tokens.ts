@@ -58,7 +58,7 @@ const chains: Array<Chain> = [
     minVolume: 10_000, // AVAX
   },
   {
-    chainId: ChainId.ZkSyncEraMainnet,
+    chainId: ChainId.ZkSyncMainnet,
     baseUrl: 'https://api-zksync.reservoir.tools',
     minVolume: 100, // ETH
   },

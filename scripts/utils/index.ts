@@ -85,7 +85,6 @@ export const uploadData = async <T extends AddressType>(
     Bucket: bucket,
     Key: relativeDataPath,
     Body: JSON.stringify(sanitisedData),
-    // ACL: ObjectCannedACL.public_read,
     ContentType: 'application/json',
   };
 

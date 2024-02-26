@@ -1,4 +1,4 @@
-import { ChainId, chains } from '@revoke.cash/chains';
+import { ChainId, getChainById } from '@revoke.cash/chains';
 import { sleep, writeData } from 'scripts/utils';
 import { allChainIds } from 'scripts/utils/constants';
 import { Address, getAddress, isAddress } from 'viem';
@@ -65,10 +65,16 @@ const getTokenList = async (url: string, chainId?: number) => {
     url = `https://raw.githubusercontent.com${url}`;
   }
 
-  const res = await fetch(url).then((res) => res.json());
+  const res = await fetch(url);
 
-  if (res.tokens) {
-    return res.tokens.map((token: any) => ({
+  if (!res.ok) {
+    throw new Error(await res.text());
+  }
+
+  const resJson = await res.json();
+
+  if (resJson.tokens) {
+    return resJson.tokens.map((token: any) => ({
       ...token,
       chainId: chainId ?? token.chainId,
     }));
@@ -114,7 +120,7 @@ const tokenlistPromise = Promise.all([
       address: token.l2Address,
       decimals: token.decimals,
       logoURI: token.iconURL,
-      chainId: ChainId.ZkSyncEraMainnet,
+      chainId: ChainId.ZkSyncMainnet,
     }));
   })(),
   fetch('https://raw.githubusercontent.com/izumiFinance/izumi-tokenList/main/build/tokenList.json')
@@ -180,7 +186,7 @@ const updateErc20Tokenlist = async () => {
   for (const chainId of allChainIds) {
     const mapping = await getTokenMapping(chainId);
 
-    const chainString = `${chains.getById(chainId).name} (${String(chainId)})`.padEnd(40, ' ');
+    const chainString = `${getChainById(chainId).name} (${String(chainId)})`.padEnd(40, ' ');
     if (!mapping) {
       console.log(chainString, 'Not found');
       continue;
