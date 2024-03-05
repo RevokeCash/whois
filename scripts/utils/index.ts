@@ -1,4 +1,4 @@
-import { PutObjectCommand, PutObjectCommandInput, S3Client } from '@aws-sdk/client-s3';
+import { GetObjectCommand, GetObjectCommandInput, PutObjectCommand, PutObjectCommandInput, S3Client } from '@aws-sdk/client-s3';
 import { mkdir, readFile, writeFile } from 'fs/promises';
 import path from 'path';
 import { Address, getAddress } from 'viem';
@@ -79,13 +79,18 @@ export const uploadData = async <T extends AddressType>(
 ) => {
   const dataPath = getDataPath(dataType, addressType, chainId, address);
   const relativeDataPath = dataPath.replace(`${DATA_BASE_PATH}/`, '');
-  const sanitisedData = sanitiseData(addressType, data);
+  const sanitisedData = JSON.stringify(sanitiseData(addressType, data));
 
   const params: PutObjectCommandInput = {
     Bucket: bucket,
     Key: relativeDataPath,
-    Body: JSON.stringify(sanitisedData),
+    Body: sanitisedData,
     ContentType: 'application/json',
+  };
+
+  if (!(await checkUpdated(s3Client, bucket, relativeDataPath, sanitisedData))) {
+    console.log('Skipped', relativeDataPath);
+    return;
   };
 
   try {
@@ -103,6 +108,20 @@ export const uploadData = async <T extends AddressType>(
 
   console.log('Uploaded', relativeDataPath);
 };
+
+const checkUpdated = async (s3Client: S3Client, bucket: string, relativeDataPath: string, stringifiedData: string): Promise<boolean> => {
+  const getParams: GetObjectCommandInput = {
+    Bucket: bucket,
+    Key: relativeDataPath,
+  };
+
+  const retrievedObject = await s3Client.send(new GetObjectCommand(getParams));
+  const content = await retrievedObject.Body.transformToString();
+
+  if (content === stringifiedData) return false;
+
+  return true;
+}
 
 export const sanitiseData = <T extends AddressType>(addressType: T, data: Data<T>): Data<T> => {
   if (addressType === 'tokens') {

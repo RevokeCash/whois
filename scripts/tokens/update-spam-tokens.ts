@@ -16,6 +16,9 @@ const updateSpamTokensForChain = async (chainId: number) => {
   const urls = {
     [ChainId.EthereumMainnet]: `https://eth-mainnet.g.alchemy.com/nft/v3/${ALCHEMY_API_KEY}/getSpamContracts`,
     [ChainId.PolygonMainnet]: `https://polygon-mainnet.g.alchemy.com/nft/v3/${ALCHEMY_API_KEY}/getSpamContracts`,
+    [ChainId.ArbitrumOne]: `https://arb-mainnet.g.alchemy.com/nft/v3/${ALCHEMY_API_KEY}/getSpamContracts`,
+    [ChainId.OPMainnet]: `https://opt-mainnet.g.alchemy.com/nft/v3/${ALCHEMY_API_KEY}/getSpamContracts`,
+    [ChainId.Base]: `https://base-mainnet.g.alchemy.com/nft/v3/${ALCHEMY_API_KEY}/getSpamContracts`,
   };
 
   const res = await fetch(urls[chainId]);
