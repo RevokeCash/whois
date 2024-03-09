@@ -1,5 +1,3 @@
-import { Address } from 'viem';
-
 export interface TokenData {
   symbol?: string;
   decimals?: number;
@@ -12,9 +10,10 @@ export interface TokenMapping {
 }
 
 export interface SpenderData {
-  name: string;
+  name?: string;
   label?: string;
   exploits?: string[];
+  riskFactors?: string[];
 }
 
 export type DataType = 'manual' | 'generated';
@@ -24,6 +23,6 @@ export type Data<T extends AddressType> = T extends 'spenders' ? SpenderData : T
 export type ParsedPath = {
   dataType: DataType;
   addressType: AddressType;
-  chainId: number;
-  address: Address;
+  subdirectoryOrChainId: string;
+  identifier: string;
 };

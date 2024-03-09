@@ -124,7 +124,7 @@ const updateNftTokenlist = async ({ chainId, baseUrl, minVolume }: Chain) => {
   // Merge with the existing mapping and write to file (prefer the new data)
   await Promise.all(
     Object.entries(retrievedMapping).map(([address, token]) =>
-      writeData('generated', 'tokens', chainId, address as Address, token),
+      writeData('generated', 'tokens', String(chainId), address, token),
     ),
   );
 };

@@ -1,19 +1,33 @@
-import { GetObjectCommand, GetObjectCommandInput, PutObjectCommand, PutObjectCommandInput, S3Client } from '@aws-sdk/client-s3';
+import {
+  GetObjectCommand,
+  GetObjectCommandInput,
+  PutObjectCommand,
+  PutObjectCommandInput,
+  S3Client,
+} from '@aws-sdk/client-s3';
 import { mkdir, readFile, writeFile } from 'fs/promises';
 import path from 'path';
-import { Address, getAddress } from 'viem';
+import { getAddress, isAddress } from 'viem';
 import walkdir from 'walkdir';
 import { DATA_BASE_PATH } from './constants';
 import { AddressType, Data, DataType, ParsedPath, SpenderData, TokenData } from './types';
 
 export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-export const getDataPath = (dataType: DataType, addressType: AddressType, chainId: number, address: Address) => {
-  return path.join(getDataDirectoryPath(dataType, addressType, chainId), `${getAddress(address)}.json`);
+export const getDataPath = (
+  dataType: DataType,
+  addressType: AddressType,
+  subdirectoryOrChainId: string,
+  identifier: string,
+) => {
+  return path.join(
+    getDataDirectoryPath(dataType, addressType, subdirectoryOrChainId),
+    `${normaliseIdentifier(identifier)}.json`,
+  );
 };
 
-export const getDataDirectoryPath = (dataType: DataType, addressType: AddressType, chainId: number) => {
-  return path.join(DATA_BASE_PATH, dataType, addressType, String(chainId));
+export const getDataDirectoryPath = (dataType: DataType, addressType: AddressType, subdirectoryOrChainId: string) => {
+  return path.join(DATA_BASE_PATH, dataType, addressType, subdirectoryOrChainId);
 };
 
 export const parsePath = (filePath: string): ParsedPath => {
@@ -22,40 +36,42 @@ export const parsePath = (filePath: string): ParsedPath => {
 
   const relativePath = filePath.replace(DATA_BASE_PATH, '').replace('.json', '');
 
-  const [dataType, addressType, chainId, address] = relativePath.split(path.sep).filter((part) => !!part);
+  const [dataType, addressType, subdirectoryOrChainId, identifier] = relativePath
+    .split(path.sep)
+    .filter((part) => !!part);
 
   return {
     dataType: dataType as DataType,
     addressType: addressType as AddressType,
-    chainId: Number(chainId),
-    address: getAddress(address),
+    subdirectoryOrChainId,
+    identifier: normaliseIdentifier(identifier),
   };
 };
 
 export const readData = async <T extends AddressType>(
   dataType: DataType,
   addressType: T,
-  chainId: number,
-  address: Address,
+  subdirectoryOrChainId: string,
+  identifier: string,
 ): Promise<Data<T>> => {
   try {
-    const rawData = await readFile(getDataPath(dataType, addressType, chainId, address), 'utf-8');
+    const rawData = await readFile(getDataPath(dataType, addressType, subdirectoryOrChainId, identifier), 'utf-8');
     return JSON.parse(rawData);
   } catch {
     await sleep(1000);
-    return readData(dataType, addressType, chainId, address);
+    return readData(dataType, addressType, subdirectoryOrChainId, identifier);
   }
 };
 
 export const writeData = async <T extends AddressType>(
   dataType: DataType,
   addressType: T,
-  chainId: number,
-  address: Address,
+  subdirectoryOrChainId: string,
+  identifier: string,
   data: Data<T>,
 ) => {
-  const directoryPath = getDataDirectoryPath(dataType, addressType, chainId);
-  const dataPath = getDataPath(dataType, addressType, chainId, address);
+  const directoryPath = getDataDirectoryPath(dataType, addressType, subdirectoryOrChainId);
+  const dataPath = getDataPath(dataType, addressType, subdirectoryOrChainId, identifier);
   await mkdir(directoryPath, { recursive: true });
 
   const sanitisedData = sanitiseData(addressType, data);
@@ -64,7 +80,7 @@ export const writeData = async <T extends AddressType>(
     await writeFile(dataPath, JSON.stringify(sanitisedData));
   } catch {
     await sleep(1000);
-    await writeData(dataType, addressType, chainId, address, data);
+    await writeData(dataType, addressType, subdirectoryOrChainId, identifier, data);
   }
 };
 
@@ -73,11 +89,11 @@ export const uploadData = async <T extends AddressType>(
   bucket: string,
   dataType: DataType,
   addressType: T,
-  chainId: number,
-  address: Address,
+  subdirectoryOrChainId: string,
+  identifier: string,
   data: Data<T>,
 ) => {
-  const dataPath = getDataPath(dataType, addressType, chainId, address);
+  const dataPath = getDataPath(dataType, addressType, subdirectoryOrChainId, identifier);
   const relativeDataPath = dataPath.replace(`${DATA_BASE_PATH}/`, '');
   const sanitisedData = JSON.stringify(sanitiseData(addressType, data));
 
@@ -88,10 +104,11 @@ export const uploadData = async <T extends AddressType>(
     ContentType: 'application/json',
   };
 
+  // TODO: If a file does not exist
   if (!(await checkUpdated(s3Client, bucket, relativeDataPath, sanitisedData))) {
     console.log('Skipped', relativeDataPath);
     return;
-  };
+  }
 
   try {
     await s3Client.send(new PutObjectCommand(params));
@@ -100,7 +117,7 @@ export const uploadData = async <T extends AddressType>(
     console.log('ERROR', e.code, e.message, e);
     if (e.code.includes('ENOTFOUND')) {
       await sleep(1000);
-      await uploadData(s3Client, bucket, dataType, addressType, chainId, address, data);
+      await uploadData(s3Client, bucket, dataType, addressType, subdirectoryOrChainId, identifier, data);
     }
 
     throw e;
@@ -109,19 +126,31 @@ export const uploadData = async <T extends AddressType>(
   console.log('Uploaded', relativeDataPath);
 };
 
-const checkUpdated = async (s3Client: S3Client, bucket: string, relativeDataPath: string, stringifiedData: string): Promise<boolean> => {
+const checkUpdated = async (
+  s3Client: S3Client,
+  bucket: string,
+  relativeDataPath: string,
+  stringifiedData: string,
+): Promise<boolean> => {
   const getParams: GetObjectCommandInput = {
     Bucket: bucket,
     Key: relativeDataPath,
   };
 
-  const retrievedObject = await s3Client.send(new GetObjectCommand(getParams));
-  const content = await retrievedObject.Body.transformToString();
+  try {
+    const retrievedObject = await s3Client.send(new GetObjectCommand(getParams));
+    const content = await retrievedObject.Body.transformToString();
 
-  if (content === stringifiedData) return false;
+    if (content === stringifiedData) return false;
 
-  return true;
-}
+    return true;
+  } catch (e: any) {
+    // If the file does not exist, it will throw an error saying AccessDenied - in that case we want to upload
+    // Note: if there is an actual AccessDenied error, this will break the entire flow 😅
+    if (e?.Code === 'AccessDenied') return true;
+    throw e;
+  }
+};
 
 export const sanitiseData = <T extends AddressType>(addressType: T, data: Data<T>): Data<T> => {
   if (addressType === 'tokens') {
@@ -164,6 +193,7 @@ export const sanitiseSpenderData = (spender: SpenderData) => {
     name: spender.name,
     label: spender.label,
     exploits: spender.exploits,
+    riskFactors: spender.riskFactors,
   };
 };
 
@@ -172,9 +202,13 @@ export const copyManualData = async (addressType: AddressType) => {
   const dataPaths = paths.filter((path) => path.endsWith('.json'));
   await Promise.all(
     dataPaths.map(async (dataPath) => {
-      const { addressType, chainId, address } = parsePath(dataPath);
-      const data = await readData('manual', addressType, chainId, address);
-      await writeData('generated', addressType, chainId, address, data);
+      const { addressType, subdirectoryOrChainId, identifier } = parsePath(dataPath);
+      const data = await readData('manual', addressType, subdirectoryOrChainId, identifier);
+      await writeData('generated', addressType, subdirectoryOrChainId, identifier, data);
     }),
   );
+};
+
+export const normaliseIdentifier = (identifier: string) => {
+  return isAddress(identifier) ? getAddress(identifier.toLowerCase()) : identifier.toLowerCase();
 };

@@ -177,7 +177,7 @@ const writeToken = async (token: TokenData, address: Address, chainId: number) =
   if (address === '0x0000000000000000000000000000000000000000') return;
   if (!token.logoURI || !token.symbol) return;
 
-  await writeData('generated', 'tokens', chainId, address, token);
+  await writeData('generated', 'tokens', String(chainId), address, token);
 };
 
 const updateErc20Tokenlist = async () => {

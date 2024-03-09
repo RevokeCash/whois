@@ -35,7 +35,7 @@ const processChainFile = async (filePath: string) => {
 
   const chainSlug = filePath.replace(`${DEPLOYMENTS_PATH}/`, '').replace('.json', '');
 
-  const chainId = Number(slugToChainId[chainSlug]);
+  const chainId = String(slugToChainId[chainSlug]);
 
   if (!chainId) {
     throw new Error(`Unknown chain slug: ${chainSlug}`);

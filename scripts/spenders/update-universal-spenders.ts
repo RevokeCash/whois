@@ -15,6 +15,6 @@ console.log('Updating universal spenders');
 
 allChainIds.forEach((chainId) => {
   Object.entries(UNIVERSAL_SPENDERS).forEach(async ([address, spender]) => {
-    await writeData('generated', 'spenders', chainId, address as Address, spender);
+    await writeData('generated', 'spenders', String(chainId), address, spender);
   });
 });

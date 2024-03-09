@@ -28,9 +28,17 @@ export const uploadGeneratedData = async (addressType: AddressType) => {
   await Promise.all(
     dataPaths.map(async (dataPath) =>
       pQueue.add(async () => {
-        const { addressType, chainId, address } = parsePath(dataPath);
-        const data = await readData('generated', addressType, chainId, address);
-        await uploadData(s3Client, process.env.S3_BUCKET, 'generated', addressType, chainId, address, data);
+        const { addressType, subdirectoryOrChainId, identifier } = parsePath(dataPath);
+        const data = await readData('generated', addressType, subdirectoryOrChainId, identifier);
+        await uploadData(
+          s3Client,
+          process.env.S3_BUCKET,
+          'generated',
+          addressType,
+          subdirectoryOrChainId,
+          identifier,
+          data,
+        );
       }),
     ),
   );

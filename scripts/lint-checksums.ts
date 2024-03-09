@@ -1,6 +1,6 @@
 import fs from 'fs/promises';
 import path from 'path';
-import { getAddress } from 'viem';
+import { normaliseIdentifier } from './utils';
 import { DATA_BASE_PATH } from './utils/constants';
 
 const lintChecksums = async (dataPath: string) => {
@@ -13,10 +13,10 @@ const lintChecksums = async (dataPath: string) => {
 
       await Promise.all(
         files.map(async (file) => {
-          const address = file.replace('.json', '');
-          const checksummedAddress = getAddress(address.toLowerCase());
+          const identifier = file.replace('.json', '');
+          const normalisedIdentifier = normaliseIdentifier(identifier);
 
-          await fs.rename(path.join(chainPath, file), path.join(chainPath, `${checksummedAddress}.json`));
+          await fs.rename(path.join(chainPath, file), path.join(chainPath, `${normalisedIdentifier}.json`));
         }),
       );
     }),
