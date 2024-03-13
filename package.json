@@ -25,10 +25,10 @@
     "postinstall": "git config --local include.path ../.gitconfig"
   },
   "devDependencies": {
-    "@aws-sdk/client-s3": "^3.525.0",
+    "@aws-sdk/client-s3": "^3.529.1",
     "@revoke.cash/chains": "^31.0.0",
-    "@types/node": "^20.11.19",
-    "dotenv": "^16.4.4",
+    "@types/node": "^20.11.26",
+    "dotenv": "^16.4.5",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
     "p-queue": "^6.6.2",
@@ -36,7 +36,7 @@
     "prettier-plugin-organize-imports": "^3.2.4",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
-    "typescript": "^5.3.3",
+    "typescript": "^5.4.2",
     "viem": "^1.21.4",
     "walkdir": "^0.4.1"
   },
