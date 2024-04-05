@@ -21,8 +21,8 @@ const s3Client = new S3Client({
 
 const pQueue = new PQueue({ concurrency: 10_000 });
 
-export const uploadGeneratedData = async (addressType: AddressType) => {
-  const paths = await walkdir.async(path.join(DATA_BASE_PATH, 'generated', addressType));
+export const uploadGeneratedData = async (addressType: AddressType, ...additionalPath: string[]) => {
+  const paths = await walkdir.async(path.join(DATA_BASE_PATH, 'generated', addressType, ...additionalPath));
   const dataPaths = paths.filter((path) => path.endsWith('.json'));
 
   await Promise.all(
@@ -46,5 +46,17 @@ export const uploadGeneratedData = async (addressType: AddressType) => {
   console.log('Finished uploading', addressType);
 };
 
-uploadGeneratedData('tokens');
-uploadGeneratedData('spenders');
+if (process.argv.includes('tokens')) {
+  console.log('Uploading tokens data...');
+  uploadGeneratedData('tokens');
+}
+
+if (process.argv.includes('spenders')) {
+  console.log('Uploading spenders data...');
+  uploadGeneratedData('spenders');
+}
+
+if (process.argv.includes('scamsniffer')) {
+  console.log('Uploading scamsniffer spenders data...');
+  uploadGeneratedData('spenders', 'scamsniffer');
+}
