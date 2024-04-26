@@ -170,6 +170,7 @@ export const sanitiseTokenData = (token: TokenData) => {
   const logoOverrides = {
     USDT: USDT_LOGO,
     USDTE: USDT_LOGO,
+    'BSC-USD': USDT_LOGO,
     WETH: WETH_LOGO,
   };
 
