@@ -68,16 +68,20 @@ const getTokenList = async (url: string, chainId?: number) => {
   const res = await fetch(url);
 
   if (!res.ok) {
-    throw new Error(await res.text());
+    throw new Error(`${url} (${chainId}) -- ${await res.text()}`);
   }
 
-  const resJson = await res.json();
+  try {
+    const resJson = await res.json();
 
-  if (resJson.tokens) {
-    return resJson.tokens.map((token: any) => ({
-      ...token,
-      chainId: chainId ?? token.chainId,
-    }));
+    if (resJson.tokens) {
+      return resJson.tokens.map((token: any) => ({
+        ...token,
+        chainId: chainId ?? token.chainId,
+      }));
+    }
+  } catch (e) {
+    throw new Error(`${url} (${chainId}) -- ${e.message}`);
   }
 
   return [];
