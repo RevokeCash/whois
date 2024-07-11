@@ -13,7 +13,7 @@ const run = async () => {
 
   scamSnifferBlocklist.forEach(async (identifier: string) => {
     const spenderData: SpenderData = {
-      riskFactors: ['scamsniffer_blocklist'],
+      riskFactors: ['blocklist_scamsniffer'],
     };
 
     await writeData('generated', 'spenders', 'scamsniffer', identifier, spenderData);
