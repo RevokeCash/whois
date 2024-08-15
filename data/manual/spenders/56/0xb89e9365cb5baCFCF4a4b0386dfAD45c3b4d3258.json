@@ -1,5 +1,11 @@
 {
   "name": "StableMagnet",
   "label": "StableMagnet",
-  "exploits": ["StableMagnet Rug Pull"]
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "StableMagnet Rug Pull"
+    }
+  ]
 }

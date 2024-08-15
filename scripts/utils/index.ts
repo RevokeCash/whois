@@ -193,7 +193,6 @@ export const sanitiseSpenderData = (spender: SpenderData) => {
   return {
     name: spender.name,
     label: spender.label,
-    exploits: spender.exploits,
     riskFactors: spender.riskFactors,
   };
 };

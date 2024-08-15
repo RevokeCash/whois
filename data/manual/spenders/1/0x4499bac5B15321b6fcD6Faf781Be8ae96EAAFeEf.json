@@ -1,5 +1,11 @@
 {
   "name": "PREMINT Exploiter",
   "label": "PREMINT Exploiter",
-  "exploits": ["PREMINT Frontend Hack"]
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "PREMINT Frontend Hack"
+    }
+  ]
 }

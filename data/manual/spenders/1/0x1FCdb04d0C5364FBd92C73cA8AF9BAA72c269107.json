@@ -1,5 +1,11 @@
 {
   "name": "BadgerDAO Exploiter",
   "label": "BadgerDAO Exploiter",
-  "exploits": ["BadgerDAO Frontend Hack"]
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "BadgerDAO Frontend Hack"
+    }
+  ]
 }

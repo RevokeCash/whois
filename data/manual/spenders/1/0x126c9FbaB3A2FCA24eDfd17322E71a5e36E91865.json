@@ -1,5 +1,11 @@
 {
   "name": "Unibot",
   "label": "Unibot: Router",
-  "exploits": ["Unibot Hack"]
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "Unibot Hack"
+    }
+  ]
 }

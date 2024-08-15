@@ -1,5 +1,11 @@
 {
   "name": "SushiSwap",
   "label": "SushiSwap: RouterProcessor 2",
-  "exploits": ["SushiSwap Hack"]
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "SushiSwap Hack"
+    }
+  ]
 }

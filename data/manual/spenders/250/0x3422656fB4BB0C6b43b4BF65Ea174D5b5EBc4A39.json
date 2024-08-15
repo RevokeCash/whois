@@ -1,5 +1,11 @@
 {
   "name": "Rabby",
   "label": "Rabby: Swaps Router",
-  "exploits": ["Rabby Swap Hack"]
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "Rabby Swap Hack"
+    }
+  ]
 }

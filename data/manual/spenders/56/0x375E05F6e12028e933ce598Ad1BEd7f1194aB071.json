@@ -1,5 +1,11 @@
 {
   "name": "Hashflow",
   "label": "Hashflow",
-  "exploits": ["Hashflow Whitehat Hack"]
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "Hashflow Whitehat Hack"
+    }
+  ]
 }

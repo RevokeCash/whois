@@ -1,4 +1,10 @@
 {
   "name": "Blur (old)",
-  "label": "Blur: v1"
+  "label": "Blur: v1",
+  "riskFactors": [
+    {
+      "type": "deprecated",
+      "source": "whois"
+    }
+  ]
 }

@@ -1,5 +1,11 @@
 {
   "name": "ParaSwap",
   "label": "ParaSwap: Augustus v6",
-  "exploits": ["ParaSwap Whitehat Hack"]
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "ParaSwap Whitehat Hack"
+    }
+  ]
 }

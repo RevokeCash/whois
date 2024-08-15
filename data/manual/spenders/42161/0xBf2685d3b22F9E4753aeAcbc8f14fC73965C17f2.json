@@ -1,5 +1,11 @@
 {
   "name": "Merkle Trade",
   "label": "Merkle Trade: Swap & Deposit",
-  "exploits": ["Merkle Trade Hack"]
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "Merkle Trade Hack"
+    }
+  ]
 }

@@ -1,5 +1,11 @@
 {
   "name": "Seneca",
   "label": "Seneca: PT-ezETH",
-  "exploits": ["Seneca Hack"]
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "Seneca Hack"
+    }
+  ]
 }

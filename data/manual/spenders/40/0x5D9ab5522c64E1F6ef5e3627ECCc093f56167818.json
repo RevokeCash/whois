@@ -1,5 +1,11 @@
 {
   "name": "Multichain",
   "label": "Multichain: Router v3",
-  "exploits": ["2022 Multichain Hack"]
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "2022 Multichain Hack"
+    }
+  ]
 }

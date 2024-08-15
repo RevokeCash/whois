@@ -1,4 +1,10 @@
 {
   "name": "OpenSea (old)",
-  "label": "OpenSea: WyvernTokenTransferProxy"
+  "label": "OpenSea: WyvernTokenTransferProxy",
+  "riskFactors": [
+    {
+      "type": "deprecated",
+      "source": "whois"
+    }
+  ]
 }

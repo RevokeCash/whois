@@ -1,5 +1,11 @@
 {
   "name": "Concentric",
   "label": "Concentric: GRAIL/WETH",
-  "exploits": ["Concentric Hack"]
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "Concentric Hack"
+    }
+  ]
 }

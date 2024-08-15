@@ -1,5 +1,11 @@
 {
   "name": "Quixotic",
   "label": "Quixotic: Exchange v4",
-  "exploits": ["Quixotic Hack"]
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "Quixotic Hack"
+    }
+  ]
 }

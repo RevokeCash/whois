@@ -12,8 +12,13 @@ export interface TokenMapping {
 export interface SpenderData {
   name?: string;
   label?: string;
-  exploits?: string[];
-  riskFactors?: string[];
+  riskFactors?: RiskFactor[];
+}
+
+export interface RiskFactor {
+  type: string;
+  source: string;
+  data?: string;
 }
 
 export type DataType = 'manual' | 'generated';

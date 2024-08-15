@@ -1,5 +1,11 @@
 {
   "name": "LI.FI",
   "label": "LI.FI: LiFi Diamond",
-  "exploits": ["2024 LI.FI Hack"]
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "2024 LI.FI Hack"
+    }
+  ]
 }

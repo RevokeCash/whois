@@ -1,4 +1,10 @@
 {
   "name": "Uniswap",
-  "label": "Uniswap: TUSD (old)"
+  "label": "Uniswap: TUSD (old)",
+  "riskFactors": [
+    {
+      "type": "deprecated",
+      "source": "whois"
+    }
+  ]
 }

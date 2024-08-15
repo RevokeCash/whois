@@ -1,5 +1,11 @@
 {
   "name": "BitKeep",
   "label": "BitKeep: Swap Router",
-  "exploits": ["BitKeep Swap Hack"]
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "BitKeep Swap Hack"
+    }
+  ]
 }

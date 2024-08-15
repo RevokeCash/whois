@@ -1,5 +1,11 @@
 {
   "name": "Biswap",
   "label": "Biswap: v3 Migrator",
-  "exploits": ["Biswap v3 Migrator Hack"]
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "Biswap v3 Migrator Hack"
+    }
+  ]
 }

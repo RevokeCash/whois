@@ -1,5 +1,11 @@
 {
   "name": "Galxe Hacker",
   "label": "Galxe Hacker",
-  "exploits": ["Galxe Frontend Hack"]
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "Galxe Frontend Hack"
+    }
+  ]
 }

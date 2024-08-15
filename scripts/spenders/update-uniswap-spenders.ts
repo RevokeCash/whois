@@ -48,6 +48,7 @@ const processChainFile = async (filePath: string) => {
       await writeData('generated', 'spenders', chainId, contents.UniversalRouter, {
         name: 'Uniswap (old)',
         label: 'Uniswap: Universal Router v1.1',
+        riskFactors: [{ type: 'deprecated', source: 'whois' }],
       });
     } else if (key === 'UniversalRouterV1_2') {
       await writeData('generated', 'spenders', chainId, contents.UniversalRouterV1_2, {

@@ -1,5 +1,11 @@
 {
   "name": "Polynomial Protocol",
   "label": "Polynomial Protocol: Zap",
-  "exploits": ["Polynomial Protocol Hack"]
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "Polynomial Protocol Hack"
+    }
+  ]
 }

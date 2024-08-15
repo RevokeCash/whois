@@ -1,4 +1,10 @@
 {
   "name": "Unizen",
-  "exploits": ["Unizen Hack"]
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "Unizen Hack"
+    }
+  ]
 }

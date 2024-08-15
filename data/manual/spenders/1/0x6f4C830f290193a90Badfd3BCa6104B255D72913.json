@@ -1,5 +1,11 @@
 {
   "name": "Unagii",
   "label": "Unagii: WethZap",
-  "exploits": ["Unagii Whitehat Hack"]
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "Unagii Whitehat Hack"
+    }
+  ]
 }

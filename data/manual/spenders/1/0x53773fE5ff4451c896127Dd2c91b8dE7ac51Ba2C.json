@@ -1,5 +1,11 @@
 {
   "name": "dYdX",
   "label": "dYdX: Deposit Flow",
-  "exploits": ["dYdX Whitehat Hack"]
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "dYdX Whitehat Hack"
+    }
+  ]
 }

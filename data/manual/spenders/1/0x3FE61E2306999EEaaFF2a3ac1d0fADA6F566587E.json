@@ -1,5 +1,11 @@
 {
   "name": "Namecheap DNS Exploiter",
   "label": "Namecheap DNS Exploiter",
-  "exploits": ["Namecheap DNS Hijack"]
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "Namecheap DNS Hijack"
+    }
+  ]
 }

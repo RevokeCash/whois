@@ -1,4 +1,5 @@
 {
   "name": "Bebop (old)",
-  "label": "Bebop: Settlement (old)"
+  "label": "Bebop: Settlement (old)",
+  "riskFactors": [{ "type": "deprecated", "source": "whois" }]
 }

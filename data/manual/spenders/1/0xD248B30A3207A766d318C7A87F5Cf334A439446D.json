@@ -1,5 +1,11 @@
 {
   "name": "Brahma",
   "label": "Brahma: Zapper",
-  "exploits": ["Brahma Hack"]
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "Brahma Hack"
+    }
+  ]
 }

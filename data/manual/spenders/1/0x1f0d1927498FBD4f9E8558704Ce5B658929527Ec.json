@@ -1,5 +1,11 @@
 {
   "name": "Zapper",
   "label": "Zapper: Deprecated Polygon Bridge",
-  "exploits": ["Zapper Whitehat Hack"]
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "Zapper Whitehat Hack"
+    }
+  ]
 }

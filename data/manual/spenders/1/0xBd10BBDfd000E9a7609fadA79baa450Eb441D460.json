@@ -1,5 +1,11 @@
 {
   "name": "Ledger Exploiter",
   "label": "Ledger Exploiter",
-  "exploits": ["Ledger Connect Kit Hack"]
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "Ledger Connect Kit Hack"
+    }
+  ]
 }

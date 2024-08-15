@@ -1,5 +1,11 @@
 {
   "name": "Auctus",
   "label": "Auctus: Beta",
-  "exploits": ["Auctus Hack"]
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "Auctus Hack"
+    }
+  ]
 }

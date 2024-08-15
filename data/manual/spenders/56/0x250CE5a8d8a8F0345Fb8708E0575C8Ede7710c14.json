@@ -1,5 +1,11 @@
 {
   "name": "Harvest Keeper",
   "label": "Harvest Keeper",
-  "exploits": ["Harvest Keeper Rug Pull"]
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "Harvest Keeper Rug Pull"
+    }
+  ]
 }

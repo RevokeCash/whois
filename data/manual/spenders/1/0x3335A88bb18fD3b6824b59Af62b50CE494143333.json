@@ -1,5 +1,11 @@
 {
   "name": "Rubic",
   "label": "Rubic: Proxy",
-  "exploits": ["Rubic Hack"]
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "Rubic Hack"
+    }
+  ]
 }

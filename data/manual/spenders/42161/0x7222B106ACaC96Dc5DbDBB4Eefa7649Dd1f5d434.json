@@ -1,5 +1,11 @@
 {
   "name": "Dexible",
   "label": "Dexible: Proxy",
-  "exploits": ["Dexible Hack"]
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "Dexible Hack"
+    }
+  ]
 }

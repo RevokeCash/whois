@@ -1,5 +1,11 @@
 {
   "name": "BSCex",
   "label": "BSCex",
-  "exploits": ["BSCex Hack"]
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "BSCex Hack"
+    }
+  ]
 }

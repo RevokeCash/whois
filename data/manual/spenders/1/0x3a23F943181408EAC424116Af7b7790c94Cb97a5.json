@@ -1,5 +1,11 @@
 {
   "name": "Socket",
   "label": "Socket: Gateway",
-  "exploits": ["Socket Hack"]
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "Socket Hack"
+    }
+  ]
 }

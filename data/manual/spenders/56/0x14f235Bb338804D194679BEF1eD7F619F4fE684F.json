@@ -1,5 +1,11 @@
 {
   "name": "Atlantis Loans",
   "label": "Atlantis Loans",
-  "exploits": ["Atlantis Loans Hack"]
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "Atlantis Loans Hack"
+    }
+  ]
 }

@@ -13,11 +13,14 @@ const run = async () => {
 
   scamSnifferBlocklist.forEach(async (identifier: string) => {
     const spenderData: SpenderData = {
-      riskFactors: ['blocklist_scamsniffer'],
+      riskFactors: [{ type: 'blocklist', source: 'scamsniffer' }],
     };
 
     await writeData('generated', 'spenders', 'scamsniffer', identifier, spenderData);
   });
+
+  // TODO: Add https://github.com/forta-network/labelled-datasets/blob/main/labels/1/phishing_scams.csv
+  // TODO: Add https://github.com/forta-network/labelled-datasets/blob/main/labels/1/etherscan_malicious_labels.csv
 };
 
 run();

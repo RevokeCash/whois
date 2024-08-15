@@ -1,5 +1,12 @@
 {
   "name": "NFT Trader (old)",
   "label": "NFT Trader",
-  "exploits": ["NFT Trader Hack"]
+  "riskFactors": [
+    { "type": "deprecated", "source": "whois" },
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "NFT Trader Hack"
+    }
+  ]
 }
