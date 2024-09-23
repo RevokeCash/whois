@@ -2,7 +2,10 @@
   "name": "NFT Trader (old)",
   "label": "NFT Trader",
   "riskFactors": [
-    { "type": "deprecated", "source": "whois" },
+    {
+      "type": "deprecated",
+      "source": "whois"
+    },
     {
       "type": "exploit",
       "source": "whois",
