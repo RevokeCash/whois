@@ -1,0 +1,11 @@
+{
+  "name": "Radiant",
+  "label": "Radiant",
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "Radiant Hack"
+    }
+  ]
+}
