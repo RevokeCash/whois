@@ -6,6 +6,10 @@
       "type": "exploit",
       "source": "whois",
       "data": "Zapper Whitehat Hack"
+    },
+    {
+      "type": "deprecated",
+      "source": "whois"
     }
   ]
 }

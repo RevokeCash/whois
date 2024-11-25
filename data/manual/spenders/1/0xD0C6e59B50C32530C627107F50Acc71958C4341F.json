@@ -1,0 +1,5 @@
+{
+  "name": "NFTfi (old)",
+  "label": "NFTfi: DirectLoanFixedCollectionOffer v2.3",
+  "riskFactors": [{ "type": "deprecated", "source": "whois" }]
+}
