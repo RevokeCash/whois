@@ -1,0 +1,11 @@
+{
+  "name": "Moby Trade",
+  "label": "Moby Trade: Controller",
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "Moby Trade Hack"
+    }
+  ]
+}

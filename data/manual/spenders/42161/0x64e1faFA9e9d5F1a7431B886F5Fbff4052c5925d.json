@@ -1,0 +1,11 @@
+{
+  "name": "Moby Trade",
+  "label": "Moby Trade: sRewardRouterV2",
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "Moby Trade Hack"
+    }
+  ]
+}
