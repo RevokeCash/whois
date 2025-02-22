@@ -20,17 +20,26 @@ const processChainFile = async (filePath: string) => {
     arbitrum: ChainId.ArbitrumOne,
     avalanche: ChainId['AvalancheC-Chain'],
     'base-goerli': ChainId.BaseGoerliTestnet,
+    'base-sepolia': ChainId.BaseSepoliaTestnet,
     base: ChainId.Base,
+    blast: ChainId.BlastMainnet,
     bsc: ChainId.BNBSmartChainMainnet,
     'celo-alfajores': ChainId.CeloAlfajoresTestnet,
     celo: ChainId.CeloMainnet,
     goerli: ChainId.Goerli,
+    ink: ChainId.Ink,
     mainnet: ChainId.EthereumMainnet,
+    'op-sepolia': ChainId.OPSepoliaTestnet,
     'optimism-goerli': ChainId.OptimismGoerliTestnet,
     optimism: ChainId.OPMainnet,
     'polygon-mumbai': ChainId.Mumbai,
     polygon: ChainId.PolygonMainnet,
     sepolia: ChainId.Sepolia,
+    soneium: ChainId.Soneium,
+    'unichain-sepolia': ChainId.UnichainSepoliaTestnet,
+    unichain: ChainId.Unichain,
+    worldchain: ChainId.WorldChain,
+    zora: ChainId.Zora,
   };
 
   const chainSlug = filePath.replace(`${DEPLOYMENTS_PATH}/`, '').replace('.json', '');
@@ -43,27 +52,48 @@ const processChainFile = async (filePath: string) => {
 
   const contents = await readFile(filePath, 'utf-8').then((contents) => JSON.parse(contents));
 
-  for (const key of Object.keys(contents)) {
-    if (key === 'UniversalRouter') {
-      await writeData('generated', 'spenders', chainId, contents.UniversalRouter, {
+  for (const [key, value] of Object.entries<string>(contents)) {
+    if (key === 'UniversalRouterV1') {
+      await writeData('generated', 'spenders', chainId, value, {
+        name: 'Uniswap (old)',
+        label: 'Uniswap: Universal Router v1',
+        riskFactors: [{ type: 'deprecated', source: 'whois' }],
+      });
+    } else if (key === 'UniversalRouterV1_1') {
+      await writeData('generated', 'spenders', chainId, value, {
         name: 'Uniswap (old)',
         label: 'Uniswap: Universal Router v1.1',
         riskFactors: [{ type: 'deprecated', source: 'whois' }],
       });
     } else if (key === 'UniversalRouterV1_2') {
-      await writeData('generated', 'spenders', chainId, contents.UniversalRouterV1_2, {
+      await writeData('generated', 'spenders', chainId, value, {
         name: 'Uniswap',
         label: 'Uniswap: Universal Router v1.2',
       });
     } else if (key === 'UniversalRouterV1_3') {
-      await writeData('generated', 'spenders', chainId, contents.UniversalRouterV1_3, {
+      await writeData('generated', 'spenders', chainId, value, {
         name: 'Uniswap',
         label: 'Uniswap: Universal Router v1.3',
       });
     } else if (key === 'UniversalRouterV1_2_V2Support') {
-      await writeData('generated', 'spenders', chainId, contents.UniversalRouterV1_2_V2Support, {
+      await writeData('generated', 'spenders', chainId, value, {
         name: 'Uniswap',
-        label: 'Uniswap: Universal Router v1.2 (v2 Support)',
+        label: 'Uniswap: Universal Router v1.2 (Uniswap v2 Support)',
+      });
+    } else if (key === 'UniversalRouterV1_2_NoV2Support') {
+      await writeData('generated', 'spenders', chainId, value, {
+        name: 'Uniswap',
+        label: 'Uniswap: Universal Router v1.2 (no Uniswap v2 support)',
+      });
+    } else if (key === 'UniversalRouterV2') {
+      await writeData('generated', 'spenders', chainId, value, {
+        name: 'Uniswap',
+        label: 'Uniswap: Universal Router v2',
+      });
+    } else if (key === 'UniversalRouterV2_NoV2V3Support') {
+      await writeData('generated', 'spenders', chainId, value, {
+        name: 'Uniswap',
+        label: 'Uniswap: Universal Router v2 (no Uniswap v2/v3 support)',
       });
     } else if (key === 'UnsupportedProtocol') {
       // pass

@@ -95,6 +95,7 @@ const tokenlistPromise = Promise.all([
   getTokenList('/map3xyz/wanchain-tokenlist/master/tokenlist.json', ChainId.Wanchain),
   getTokenList('/kardiachain/token-assets/master/tokens/mobile-list.json', ChainId.KardiaChainMainnet),
   getTokenList('/yodedex/yodeswap-default-tokenlist/main/yodeswap.tokenlist.json', ChainId.DogechainMainnet),
+  getTokenList('/berachain/bex-tokenlists/refs/heads/main/generated/ooga-booga.tokenlist.json', ChainId.Berachain),
   getTokenList('/CoinTool-App/cdn/main/json/dogechain.json'),
   getTokenList('/CoinTool-App/cdn/main/json/heco.json'),
   getTokenList('/CoinTool-App/cdn/main/json/movr.json'),
@@ -125,6 +126,26 @@ const tokenlistPromise = Promise.all([
       decimals: token.decimals,
       logoURI: token.iconURL,
       chainId: ChainId.ZkSyncMainnet,
+    }));
+  })(),
+  (async () => {
+    const tokens = [];
+    const baseUrl = 'https://explorer-gravity-mainnet-0.t.conduit.xyz/api/v2/tokens';
+    let url = `${baseUrl}`;
+    while (url) {
+      const res = await fetch(url).then((res) => res.json());
+      tokens.push(...(res?.items ?? []));
+
+      const nextParams = new URLSearchParams(res.next_page_params);
+      url = nextParams.get('contract_address_hash') ? `${baseUrl}?${nextParams.toString()}` : undefined;
+    }
+
+    return tokens.map((token: any) => ({
+      symbol: token.symbol,
+      address: token.address,
+      decimals: token.decimals,
+      logoURI: token.icon_url,
+      chainId: ChainId.GravityAlphaMainnet,
     }));
   })(),
   fetch('https://raw.githubusercontent.com/izumiFinance/izumi-tokenList/main/build/tokenList.json')

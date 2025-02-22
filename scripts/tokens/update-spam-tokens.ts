@@ -33,4 +33,4 @@ const updateSpamTokensForChain = async (chainId: number) => {
   );
 };
 
-updateSpamTokens();
+// updateSpamTokens();

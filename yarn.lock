@@ -771,10 +771,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@revoke.cash/chains@npm:^31.0.0":
-  version: 31.0.0
-  resolution: "@revoke.cash/chains@npm:31.0.0"
-  checksum: d811491c88cfdb03201ce8c52f8904dec94fb570934eddf321bbd6d0b1f0b66fae427453483a78f6130e75a98acf6ecfa434d6be062afa20eea7a3bac810b4b2
+"@revoke.cash/chains@npm:^63.0.0":
+  version: 63.0.0
+  resolution: "@revoke.cash/chains@npm:63.0.0"
+  checksum: 14495bcab3fb15acc9ddff24077e2b6851ecb04f0aebb792675ac36bd47ac2a7269f5da7dd0fab8a25898b2b7d161d8d44461ae78c9af0d3b45fc33531239d06
   languageName: node
   linkType: hard
 
@@ -783,7 +783,7 @@ __metadata:
   resolution: "@revoke.cash/whois@workspace:."
   dependencies:
     "@aws-sdk/client-s3": ^3.529.1
-    "@revoke.cash/chains": ^31.0.0
+    "@revoke.cash/chains": ^63.0.0
     "@types/node": ^20.11.26
     dotenv: ^16.4.5
     husky: ^9.0.11
