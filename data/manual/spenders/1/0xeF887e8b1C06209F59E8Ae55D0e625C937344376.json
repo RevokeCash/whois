@@ -1,6 +1,6 @@
 {
   "name": "X2Y2",
-  "label": "X2Y2: ERC721 Delegate",
+  "label": "X2Y2: Delegate",
   "riskFactors": [
     {
       "type": "deprecated",
