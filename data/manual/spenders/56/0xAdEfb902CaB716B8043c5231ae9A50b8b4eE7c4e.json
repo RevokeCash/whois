@@ -1,0 +1,11 @@
+{
+  "name": "Bankroll Network",
+  "label": "Bankroll Network",
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "Bankroll Network Hack"
+    }
+  ]
+}
