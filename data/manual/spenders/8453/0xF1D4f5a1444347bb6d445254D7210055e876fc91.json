@@ -1,0 +1,10 @@
+{
+  "name": "Arcadia Finance",
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "Arcadia Finance Hack"
+    }
+  ]
+}
