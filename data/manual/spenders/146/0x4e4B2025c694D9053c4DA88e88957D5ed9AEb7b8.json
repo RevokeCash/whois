@@ -1,0 +1,11 @@
+{
+  "name": "Fisclend",
+  "label": "Fisclend",
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "Fisclend Rug Pull"
+    }
+  ]
+}
