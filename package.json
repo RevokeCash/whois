@@ -8,9 +8,9 @@
   "scripts": {
     "update:tokens:erc20": "tsx ./scripts/tokens/update-erc20-tokens.ts",
     "update:tokens:nft": "tsx ./scripts/tokens/update-nft-tokens.ts",
-    "update:tokens:spam": "tsx ./scripts/tokens/update-spam-tokens.ts",
+    "update:tokens:spam": "tsx --max-old-space-size=32768 ./scripts/tokens/update-spam-tokens.ts",
     "update:tokens:manual": "tsx ./scripts/tokens/copy-manual-tokens.ts",
-    "update:tokens": "yarn update:tokens:erc20 && yarn update:tokens:spam && yarn update:tokens:manual",
+    "update:tokens": "yarn update:tokens:erc20 && yarn update:tokens:manual",
     "update:spenders:ethereum-lists": "tsx ./scripts/spenders/update-ethereum-lists-spenders.ts",
     "update:spenders:uniswap": "tsx ./scripts/spenders/update-uniswap-spenders.ts",
     "update:spenders:risk-factors": "tsx ./scripts/spenders/update-risk-factors.ts",
@@ -38,7 +38,8 @@
     "tsx": "^4.19.2",
     "typescript": "^5.4.2",
     "viem": "^1.21.4",
-    "walkdir": "^0.4.1"
+    "walkdir": "^0.4.1",
+    "yaml": "^2.8.1"
   },
   "packageManager": "yarn@4.6.0"
 }
