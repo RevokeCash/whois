@@ -1,0 +1,11 @@
+{
+  "name": "dTRINITY dLEND",
+  "label": "dTRINITY dLEND",
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "dTRINITY dLEND Hack"
+    }
+  ]
+}

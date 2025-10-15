@@ -16,6 +16,8 @@ const lintChecksums = async (dataPath: string) => {
           const identifier = file.replace('.json', '');
           const normalisedIdentifier = normaliseIdentifier(identifier);
 
+          if (identifier === normalisedIdentifier) return;
+
           await fs.rename(path.join(chainPath, file), path.join(chainPath, `${normalisedIdentifier}.json`));
         }),
       );
@@ -24,7 +26,12 @@ const lintChecksums = async (dataPath: string) => {
 };
 
 console.log('Linting checksums');
-lintChecksums(path.join(DATA_BASE_PATH, 'manual', 'spenders'));
-lintChecksums(path.join(DATA_BASE_PATH, 'manual', 'tokens'));
-lintChecksums(path.join(DATA_BASE_PATH, 'generated', 'spenders'));
-lintChecksums(path.join(DATA_BASE_PATH, 'generated', 'tokens'));
+
+const run = async () => {
+  await lintChecksums(path.join(DATA_BASE_PATH, 'manual', 'spenders'));
+  await lintChecksums(path.join(DATA_BASE_PATH, 'manual', 'tokens'));
+  // await lintChecksums(path.join(DATA_BASE_PATH, 'generated', 'spenders'));
+  // await lintChecksums(path.join(DATA_BASE_PATH, 'generated', 'tokens'));
+};
+
+run();

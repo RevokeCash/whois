@@ -1,0 +1,11 @@
+{
+  "name": "Kame Aggregator",
+  "label": "Kame Aggregator",
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "Kame Aggregator Hack"
+    }
+  ]
+}
