@@ -1,4 +1,4 @@
-import { Chain, allChains } from '@revoke.cash/chains';
+import { allChains, Chain } from '@revoke.cash/chains';
 import dotenv from 'dotenv';
 import path from 'path';
 

@@ -214,19 +214,20 @@ const SCAM_DELEGATES_ADDRESSES = [
   '0x6F7c7b0129AFD6172dd36891B7048c6CF2D29c7f',
 ] as const;
 
-const SCAM_DELEGATES: UniversalSpenders = SCAM_DELEGATES_ADDRESSES
-  .reduce<UniversalSpenders>((acc, address) => ({
+const SCAM_DELEGATES: UniversalSpenders = SCAM_DELEGATES_ADDRESSES.reduce<UniversalSpenders>(
+  (acc, address) => ({
     ...acc,
     [address]: {
       chains: allChainIds,
       data: {
         name: 'Scam Delegate',
         label: 'Scam Delegate: EIP7702 Delegator',
-        riskFactors: [{ type: 'blocklist', source: 'whois' }]
+        riskFactors: [{ type: 'blocklist', source: 'whois' }],
       },
     },
-  }), {});
-
+  }),
+  {},
+);
 
 console.log('Updating universal spenders');
 

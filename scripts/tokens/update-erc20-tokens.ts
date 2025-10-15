@@ -96,6 +96,7 @@ const tokenlistPromise = Promise.all([
   getTokenList('/kardiachain/token-assets/master/tokens/mobile-list.json', ChainId.KardiaChainMainnet),
   getTokenList('/yodedex/yodeswap-default-tokenlist/main/yodeswap.tokenlist.json', ChainId.DogechainMainnet),
   getTokenList('/berachain/bex-tokenlists/refs/heads/main/generated/ooga-booga.tokenlist.json', ChainId.Berachain),
+  getTokenList('/dragonswap-app/assets/refs/heads/main/tokenlist-sei-mainnet.json'),
   getTokenList('/CoinTool-App/cdn/main/json/dogechain.json'),
   getTokenList('/CoinTool-App/cdn/main/json/heco.json'),
   getTokenList('/CoinTool-App/cdn/main/json/movr.json'),
