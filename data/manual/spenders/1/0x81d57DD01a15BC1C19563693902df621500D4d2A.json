@@ -1,0 +1,15 @@
+{
+  "name": "Thirdweb Bridge (old)",
+  "label": "Thirdweb Bridge (old)",
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "Thirdweb Bridge Hack"
+    },
+    {
+      "type": "deprecated",
+      "source": "whois"
+    }
+  ]
+}

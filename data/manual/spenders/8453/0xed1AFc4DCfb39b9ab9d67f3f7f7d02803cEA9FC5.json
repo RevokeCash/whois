@@ -1,0 +1,11 @@
+{
+  "name": "402bridge",
+  "label": "402bridge",
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "402bridge Hack / Rug Pull"
+    }
+  ]
+}
