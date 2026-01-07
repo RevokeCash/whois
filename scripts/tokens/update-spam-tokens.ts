@@ -1,51 +1,65 @@
-import { execSync } from 'child_process';
-import { existsSync, readFileSync } from 'fs';
-import path from 'path';
-import walkdir from 'walkdir';
-import yaml from 'yaml';
 import { writeData } from '../utils';
+import { getAddress } from 'viem';
+import { ChainId } from '@revoke.cash/chains';
 
-const CLONE_REPO = 'git@github.com:covalenthq/goldrush-enhanced-spam-lists.git';
-const CLONE_PATH = path.join(__dirname, '..', '..', 'temp', 'goldrush-enhanced-spam-lists');
-const LISTS_PATH = path.join(CLONE_PATH, 'src', 'lists');
+interface Chain {
+  chainId: number | string;
+  chainSlug: string;
+}
 
-const updateSpamTokens = async () => {
-  await importFromCovalent();
-};
+const chains: Chain[] = [
+  { chainId: ChainId.EthereumMainnet, chainSlug: 'eth-mainnet' },
+  // { chainId: ChainId.Abstract, chainSlug: 'abstract-mainnet' },
+  // { chainId: ChainId.AnimechainMainnet, chainSlug: 'anime-mainnet' },
+  // { chainId: ChainId.ApeChain, chainSlug: 'apechain-mainnet' },
+  { chainId: ChainId.ArbitrumOne, chainSlug: 'arb-mainnet' },
+  // { chainId: ChainId.ArbitrumNova, chainSlug: 'arbnova-mainnet' },
+  { chainId: ChainId['AvalancheC-Chain'], chainSlug: 'avax-mainnet' },
+  // { chainId: ChainId.Base, chainSlug: 'base-mainnet' },
+  // { chainId: ChainId.Berachain, chainSlug: 'berachain-mainnet' },
+  { chainId: ChainId.BlastMainnet, chainSlug: 'blast-mainnet' },
+  { chainId: ChainId.BNBSmartChainMainnet, chainSlug: 'bnb-mainnet' },
+  // { chainId: ChainId.CeloMainnet, chainSlug: 'celo-mainnet' },
+  { chainId: ChainId.Gnosis, chainSlug: 'gnosis-mainnet' },
+  // { chainId: ChainId.Lens, chainSlug: 'lens-mainnet' },
+  // { chainId: ChainId.Linea, chainSlug: 'linea-mainnet' },
+  // { chainId: ChainId.PolygonMainnet, chainSlug: 'polygon-mainnet' },
+  // { chainId: ChainId.OPMainnet, chainSlug: 'opt-mainnet' },
+  // { chainId: ChainId.RoninMainnet, chainSlug: 'ronin-mainnet' },
+  // { chainId: ChainId.Scroll, chainSlug: 'scroll-mainnet' },
+  // { chainId: ChainId.Settlus, chainSlug: 'settlus-mainnet' },
+  // { chainId: ChainId.Shape, chainSlug: 'shape-mainnet' },
+  // { chainId: ChainId.Soneium, chainSlug: 'soneium-mainnet' },
+  // { chainId: '23448594291968334', chainSlug: 'starknet-mainnet' },
+  // { chainId: ChainId.Story, chainSlug: 'story-mainnet' },
+  { chainId: ChainId.Unichain, chainSlug: 'unichain-mainnet' },
+  { chainId: ChainId.WorldChain, chainSlug: 'worldchain-mainnet' },
+  // { chainId: ChainId.ZetaChainMainnet, chainSlug: 'zetachain-mainnet' },
+  { chainId: ChainId.ZkSyncMainnet, chainSlug: 'zksync-mainnet' },
+  // { chainId: ChainId.Zora, chainSlug: 'zora-mainnet' },
+]
 
-const importFromCovalent = async (): Promise<void> => {
-  console.log('Updating covalent github spam tokens');
+const importSpamTokens = async ({ chainId, chainSlug }: Chain) => {
+  const url = `https://${chainSlug}.g.alchemy.com/nft/v3/${process.env.ALCHEMY_API_KEY}/getSpamContracts`;
+  const res = await fetch(url);
 
-  if (existsSync(CLONE_PATH)) {
-    execSync(`pushd ${CLONE_PATH} && git pull && popd`);
-    console.log('GitHub repository pulled.');
-  } else {
-    execSync(`git clone ${CLONE_REPO} ${CLONE_PATH}`);
-    console.log('GitHub repository cloned.');
+  if (!res.ok) {
+    throw new Error(`[${chainSlug}] Failed to fetch spam tokens: ${await res.text()}`);
   }
 
-  await processSpamTokenFiles();
-  console.log('Spam token files written.');
+  const data = await res.json();
 
-  execSync(`rm -rf ${CLONE_PATH}`);
-  console.log('GitHub repository removed.');
-};
+  console.log(`[${chainSlug}] Found ${data?.contractAddresses?.length ?? 0} spam tokens`);
 
-const processSpamTokenFiles = async () => {
-  const paths = walkdir
-    .sync(LISTS_PATH)
-    .filter((filePath) => filePath.endsWith('.yaml') && !filePath.includes('maybe'));
+  data?.contractAddresses?.forEach(async (tokenAddress: string) => {
+    await writeData('generated', 'tokens', String(chainId), getAddress(tokenAddress), { isSpam: true, note: 'Source: Alchemy' });
+  });
+}
 
-  for (const filePath of paths) {
-    console.log(`Processing ${filePath}`);
-    const spamContracts = yaml.parse(readFileSync(filePath, 'utf-8')).SpamContracts;
-    await Promise.all(
-      spamContracts.map(async (spamContract: string) => {
-        const [chainId, address, confidence] = spamContract.split('/');
-        if (parseInt(confidence) < 20) return;
-        return writeData('generated', 'tokens', chainId, address, { isSpam: true });
-      }),
-    );
+
+const updateSpamTokens = async () => {
+  for (const chain of chains) {
+    await importSpamTokens(chain);
   }
 };
 

@@ -3,6 +3,7 @@ export interface TokenData {
   decimals?: number;
   logoURI?: string;
   isSpam?: boolean;
+  note?: string;
 }
 
 export interface TokenMapping {

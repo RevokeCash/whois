@@ -3,107 +3,147 @@ import { Address, getAddress } from 'viem';
 import { sleep, writeData } from '../utils';
 import { TokenData } from '../utils/types';
 
-// Inspired by https://github.com/verynifty/RolodETH/blob/main/sources/reservoir/index.js
-
 interface Chain {
-  chainId: ChainId;
-  baseUrl: string;
-  minVolume: number;
+  chainId: number;
+  chainSlug: string;
+  maxPages?: number;
 }
 
 const chains: Array<Chain> = [
   {
-    chainId: ChainId.EthereumMainnet,
-    baseUrl: 'https://api.reservoir.tools',
-    minVolume: 100, // ETH
-  },
-  {
-    chainId: ChainId.OPMainnet,
-    baseUrl: 'https://api-optimism.reservoir.tools',
-    minVolume: 100, // ETH
-  },
-  {
-    chainId: ChainId.PolygonMainnet,
-    baseUrl: 'https://api-polygon.reservoir.tools',
-    minVolume: 200_000, // MATIC
-  },
-  {
-    chainId: ChainId.BNBSmartChainMainnet,
-    baseUrl: 'https://api-bsc.reservoir.tools',
-    minVolume: 1_000, // BNB
-  },
-  {
-    chainId: ChainId.ArbitrumOne,
-    baseUrl: 'https://api-arbitrum.reservoir.tools',
-    minVolume: 100, // ETH
+    chainId: ChainId.BlastMainnet,
+    chainSlug: 'blast',
   },
   {
     chainId: ChainId.Base,
-    baseUrl: 'https://api-base.reservoir.tools',
-    minVolume: 100, // ETH
+    chainSlug: 'base',
+  },
+  {
+    chainId: ChainId.EthereumMainnet,
+    chainSlug: 'ethereum',
+    maxPages: 200,
   },
   {
     chainId: ChainId.Zora,
-    baseUrl: 'https://api-zora.reservoir.tools',
-    minVolume: 100, // ETH
+    chainSlug: 'zora',
   },
   {
-    chainId: ChainId.Linea,
-    baseUrl: 'https://api-linea.reservoir.tools',
-    minVolume: 100, // ETH
+    chainId: ChainId.ArbitrumOne,
+    chainSlug: 'arbitrum',
+  },
+  {
+    chainId: ChainId.SeiNetwork,
+    chainSlug: 'sei',
   },
   {
     chainId: ChainId['AvalancheC-Chain'],
-    baseUrl: 'https://api-avalanche.reservoir.tools',
-    minVolume: 10_000, // AVAX
+    chainSlug: 'avalanche',
   },
   {
-    chainId: ChainId.ZkSyncMainnet,
-    baseUrl: 'https://api-zksync.reservoir.tools',
-    minVolume: 100, // ETH
+    chainId: ChainId.PolygonMainnet,
+    chainSlug: 'polygon',
   },
   {
-    chainId: ChainId.PolygonzkEVM,
-    baseUrl: 'https://api-polygon-zkevm.reservoir.tools',
-    minVolume: 100, // ETH
+    chainId: ChainId.OPMainnet,
+    chainSlug: 'optimism',
   },
   {
-    chainId: ChainId.Scroll,
-    baseUrl: 'https://api-scroll.reservoir.tools',
-    minVolume: 100, // ETH
+    chainId: ChainId.ApeChain,
+    chainSlug: 'ape_chain',
   },
+  {
+    chainId: ChainId.FlowEVMMainnet,
+    chainSlug: 'flow',
+  },
+  {
+    chainId: ChainId.Soneium,
+    chainSlug: 'soneium',
+  },
+  {
+    chainId: ChainId.RoninMainnet,
+    chainSlug: 'ronin',
+  },
+  {
+    chainId: ChainId.Berachain,
+    chainSlug: 'bera_chain',
+  },
+  // {
+  //   chainId: ChainId.SolanaMainnet,
+  //   chainSlug: 'solana',
+  // },
+  {
+    chainId: ChainId.Shape,
+    chainSlug: 'shape',
+  },
+  {
+    chainId: ChainId.Unichain,
+    chainSlug: 'unichain',
+  },
+  // {
+  //   chainId: ChainId.GunzillaMainnet,
+  //   chainSlug: 'gunzilla',
+  // },
+  {
+    chainId: ChainId.Abstract,
+    chainSlug: 'abstract',
+  },
+  {
+    chainId: ChainId.ImmutablezkEVM,
+    chainSlug: 'immutable',
+  },
+  {
+    chainId: ChainId.HyperliquidEVMTestnet,
+    chainSlug: 'hyperevm',
+  },
+  {
+    chainId: 5031,
+    chainSlug: 'somnia',
+  },
+  {
+    chainId: ChainId.BNBSmartChainMainnet,
+    chainSlug: 'bsc',
+  },
+  {
+    chainId: ChainId.MonadMainnet,
+    chainSlug: 'monad',
+  },
+  // {
+  //   chainId: ChainId.HyperliquidMainnet,
+  //   chainSlug: 'hyperliquid',
+  // },
+  // {
+  //   chainId: ChainId.MegaethMainnet,
+  //   chainSlug: 'megaeth',
+  // },
 ];
 
-const updateNftTokenlist = async ({ chainId, baseUrl, minVolume }: Chain) => {
-  const BASE_URL = `${baseUrl}/collections/v5?includeTopBid=false&sortBy=allTimeVolume&limit=20`;
-  console.log('Updating NFTs');
+const updateNftTokenlist = async ({ chainId, chainSlug, maxPages = 20 }: Chain) => {
+  const baseUrl = `https://api.opensea.io/api/v2/collections?chain=${chainSlug}&limit=50&include_hidden=false&order_by=market_cap`;
+  console.log('Updating NFTs for', chainSlug);
 
-  let shouldContinue = true;
-  let url = BASE_URL;
+  let url = baseUrl;
 
   let retrievedMapping: Record<Address, TokenData> = {};
 
-  while (shouldContinue) {
-    console.log(url);
+  for (let i = 0; i < maxPages; i++) {
+    console.log(`[${chainSlug}] (${i + 1}/${maxPages}) ${url}`);
 
-    const res = await fetch(url);
+    const res = await fetch(url, { headers: { 'x-api-key': process.env.OPENSEA_API_KEY } });
     if (!res.ok) {
+      console.error(await res.text());
       throw new Error(`Failed to fetch NFT tokenlist`);
     }
 
-    const { collections, continuation } = await res.json();
-
-    let currentVolume = Infinity;
+    const { collections, next } = await res.json();
 
     const entries = collections.map((collection) => {
-      const { primaryContract, name, image, volume } = collection;
-      currentVolume = volume?.allTime;
+      const { contracts, name, image_url } = collection;
+      const primaryContract = contracts?.find((contract) => contract.chain === chainSlug);
 
-      if (currentVolume < minVolume || !image || !primaryContract || !name) return undefined;
-      if (name === 'Slokh') return undefined; // For some reason 'Slokh' is returned for certain incorrect NFTs
+      if (!image_url || !name || !primaryContract) return undefined;
 
-      const address = getAddress(primaryContract);
-      const nft = { symbol: name, logoURI: image };
+      const address = getAddress(primaryContract.address);
+      const nft = { symbol: name, logoURI: image_url };
 
       return [address, nft];
     });
@@ -113,11 +153,9 @@ const updateNftTokenlist = async ({ chainId, baseUrl, minVolume }: Chain) => {
     retrievedMapping = { ...mapping, ...retrievedMapping };
 
     // Cut off if we're below a certain volume
-    if (continuation && currentVolume > minVolume) {
-      url = `${BASE_URL}&continuation=${continuation}`;
+    if (next) {
+      url = `${baseUrl}&next=${next}`;
       await sleep(1000);
-    } else {
-      shouldContinue = false;
     }
   }
 

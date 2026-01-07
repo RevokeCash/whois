@@ -1049,10 +1049,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@revoke.cash/chains@npm:^71.0.0":
-  version: 71.0.0
-  resolution: "@revoke.cash/chains@npm:71.0.0"
-  checksum: 10/6351eb98d48ca1becde59a7eccb7f3e6d1f05fe5397ac0872437d6f34ab983d48fc3397332db742384e1a9211624ac0c39346835c97ca78bd6e44f13c6128346
+"@revoke.cash/chains@npm:^73.0.0":
+  version: 73.0.0
+  resolution: "@revoke.cash/chains@npm:73.0.0"
+  checksum: 10/c14bf69fc1de46a2d0916d348dc37770e01b3c8e97de980cee33231304be267eb68844c525cd087a46fd9ee66428cd78b9140f3b3ed8dd9ae080297b505c9bc7
   languageName: node
   linkType: hard
 
@@ -1062,7 +1062,7 @@ __metadata:
   dependencies:
     "@aws-sdk/client-s3": "npm:^3.529.1"
     "@biomejs/biome": "npm:^2.2.4"
-    "@revoke.cash/chains": "npm:^71.0.0"
+    "@revoke.cash/chains": "npm:^73.0.0"
     "@types/node": "npm:^20.11.26"
     dotenv: "npm:^16.4.5"
     husky: "npm:^9.0.11"
