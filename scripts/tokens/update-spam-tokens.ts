@@ -1,6 +1,6 @@
-import { writeData } from '../utils';
-import { getAddress } from 'viem';
 import { ChainId } from '@revoke.cash/chains';
+import { getAddress } from 'viem';
+import { writeData } from '../utils';
 
 interface Chain {
   chainId: number | string;
@@ -37,7 +37,7 @@ const chains: Chain[] = [
   // { chainId: ChainId.ZetaChainMainnet, chainSlug: 'zetachain-mainnet' },
   { chainId: ChainId.ZkSyncMainnet, chainSlug: 'zksync-mainnet' },
   // { chainId: ChainId.Zora, chainSlug: 'zora-mainnet' },
-]
+];
 
 const importSpamTokens = async ({ chainId, chainSlug }: Chain) => {
   const url = `https://${chainSlug}.g.alchemy.com/nft/v3/${process.env.ALCHEMY_API_KEY}/getSpamContracts`;
@@ -52,10 +52,12 @@ const importSpamTokens = async ({ chainId, chainSlug }: Chain) => {
   console.log(`[${chainSlug}] Found ${data?.contractAddresses?.length ?? 0} spam tokens`);
 
   data?.contractAddresses?.forEach(async (tokenAddress: string) => {
-    await writeData('generated', 'tokens', String(chainId), getAddress(tokenAddress), { isSpam: true, note: 'Source: Alchemy' });
+    await writeData('generated', 'tokens', String(chainId), getAddress(tokenAddress), {
+      isSpam: true,
+      note: 'Source: Alchemy',
+    });
   });
-}
-
+};
 
 const updateSpamTokens = async () => {
   for (const chain of chains) {

@@ -10,7 +10,7 @@
     "update:tokens:nft": "tsx ./scripts/tokens/update-nft-tokens.ts",
     "update:tokens:spam": "tsx --max-old-space-size=32768 ./scripts/tokens/update-spam-tokens.ts",
     "update:tokens:manual": "tsx ./scripts/tokens/copy-manual-tokens.ts",
-    "update:tokens": "yarn update:tokens:erc20 && yarn update:tokens:nft && yarn update:tokens:spam && yarn update:tokens:manual",
+    "update:tokens": "yarn update:tokens:spam && yarn update:tokens:erc20 && yarn update:tokens:nft && yarn update:tokens:manual",
     "update:spenders:ethereum-lists": "tsx ./scripts/spenders/update-ethereum-lists-spenders.ts",
     "update:spenders:uniswap": "tsx ./scripts/spenders/update-uniswap-spenders.ts",
     "update:spenders:risk-factors": "tsx ./scripts/spenders/update-risk-factors.ts",

@@ -1,0 +1,7 @@
+{
+    "symbol": "USDC",
+    "decimals": 6,
+    "logoURI": "https://assets.coingecko.com/coins/images/6319/small/usdc.png",
+    "isSpam": false,
+    "note": "False positive reported on Discord in January 2026 (USDC on Arbitrum)"
+}

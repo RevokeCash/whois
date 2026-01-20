@@ -1,0 +1,7 @@
+{
+    "symbol": "USDT0",
+    "decimals": 6,
+    "logoURI": "https://assets.coingecko.com/coins/images/53705/small/usdt0.jpg",
+    "isSpam": false,
+    "note": "False positive reported on Discord in January 2026 (USDT0 on Arbitrum)"
+}
