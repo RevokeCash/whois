@@ -1,0 +1,11 @@
+{
+  "name": "Aperture Finance",
+  "label": "Aperture Finance",
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "Aperture Finance Hack"
+    }
+  ]
+}

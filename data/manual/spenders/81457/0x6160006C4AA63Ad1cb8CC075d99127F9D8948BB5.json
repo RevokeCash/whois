@@ -1,0 +1,11 @@
+{
+  "name": "SwapNet",
+  "label": "SwapNet",
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "SwapNet Hack"
+    }
+  ]
+}
