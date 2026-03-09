@@ -1,0 +1,10 @@
+{
+  "name": "Magic Eden",
+  "label": "Magic Eden: Conduit",
+  "riskFactors": [
+    {
+      "type": "deprecated",
+      "source": "whois"
+    }
+  ]
+}
