@@ -1,0 +1,11 @@
+{
+  "name": "Gondi",
+  "label": "Gondi: Purchase Bundler",
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "GONDI Hack"
+    }
+  ]
+}
