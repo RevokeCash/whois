@@ -104,13 +104,12 @@ export const uploadData = async <T extends AddressType>(
     ContentType: 'application/json',
   };
 
-  // TODO: If a file does not exist
-  if (!(await checkUpdated(s3Client, bucket, relativeDataPath, sanitisedData))) {
-    console.log('Skipped', relativeDataPath);
-    return;
-  }
-
   try {
+    if (!(await checkUpdated(s3Client, bucket, relativeDataPath, sanitisedData))) {
+      console.log('Skipped', relativeDataPath);
+      return;
+    }
+
     await s3Client.send(new PutObjectCommand(params));
   } catch (e) {
     // for some reason, upload fails sometimes with ENOTFOUND
@@ -118,6 +117,7 @@ export const uploadData = async <T extends AddressType>(
     if (e.code.includes('ENOTFOUND')) {
       await sleep(1000);
       await uploadData(s3Client, bucket, dataType, addressType, subdirectoryOrChainId, identifier, data);
+      return;
     }
 
     throw e;

@@ -13,6 +13,7 @@ const s3Client = new S3Client({
   endpoint: process.env.S3_ENDPOINT,
   forcePathStyle: false,
   region: process.env.S3_REGION,
+  maxAttempts: 5,
   credentials: {
     accessKeyId: process.env.S3_KEY,
     secretAccessKey: process.env.S3_SECRET,
