@@ -1,0 +1,11 @@
+{
+  "name": "CoW Swap Exploiter",
+  "label": "CoW Swap Exploiter",
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "CoW Swap DNS Hijack"
+    }
+  ]
+}
