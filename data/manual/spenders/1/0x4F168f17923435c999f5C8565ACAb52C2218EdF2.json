@@ -1,0 +1,11 @@
+{
+  "label": "Ekubo",
+  "name": "Ekubo",
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "Ekubo Hack"
+    }
+  ]
+}
