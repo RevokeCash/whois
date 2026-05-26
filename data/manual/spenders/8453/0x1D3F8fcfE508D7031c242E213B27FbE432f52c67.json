@@ -1,0 +1,11 @@
+{
+  "name": "Bitmor",
+  "label": "Bitmor: DCA",
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "Bitmor Hack"
+    }
+  ]
+}
