@@ -34,7 +34,7 @@ const processChainFile = async (filePath: string) => {
     optimism: ChainId.OPMainnet,
     'polygon-mumbai': ChainId.Mumbai,
     polygon: ChainId.PolygonMainnet,
-    sepolia: ChainId.Sepolia,
+    sepolia: ChainId.EthereumSepolia,
     soneium: ChainId.Soneium,
     'unichain-sepolia': ChainId.UnichainSepoliaTestnet,
     unichain: ChainId.Unichain,
@@ -94,6 +94,11 @@ const processChainFile = async (filePath: string) => {
       await writeData('generated', 'spenders', chainId, value, {
         name: 'Uniswap',
         label: 'Uniswap: Universal Router v2 (no Uniswap v2/v3 support)',
+      });
+    } else if (key === 'UniversalRouterV2_1_1') {
+      await writeData('generated', 'spenders', chainId, value, {
+        name: 'Uniswap',
+        label: 'Uniswap: Universal Router v2.1.1',
       });
     } else if (key === 'UnsupportedProtocol') {
       // pass
