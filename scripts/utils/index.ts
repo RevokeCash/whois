@@ -186,6 +186,7 @@ export const sanitiseTokenData = (token: TokenData) => {
         ?.replace(/\.png\?.+/i, '.png')
         ?.replace(/\.jpg\?.+/i, '.jpg'),
     isSpam: token.isSpam,
+    note: token.note,
   };
 };
 

@@ -110,45 +110,6 @@ const tokenlistPromise = Promise.all([
   getTokenList('/nahmii-community/bridge/main/src/nahmii.tokenlist.json'),
   getTokenList('/etherspot/etherspot-popular-tokens-tokenlist/master/multichain.tokenlist.json'),
   getTokenList('/elkfinance/tokens/main/all.tokenlist.json'),
-  (async () => {
-    const tokens = [];
-    const baseUrl = 'https://block-explorer-api.mainnet.zksync.io/';
-    let url = `${baseUrl}tokens?minLiquidity=0&limit=100&page=1`;
-    while (url) {
-      const res = await fetch(url).then((res) => res.json());
-      tokens.push(...(res?.items ?? []));
-
-      url = res?.links?.next ? `${baseUrl}${res?.links?.next}` : undefined;
-    }
-
-    return tokens.map((token: any) => ({
-      symbol: token.symbol,
-      address: token.l2Address,
-      decimals: token.decimals,
-      logoURI: token.iconURL,
-      chainId: ChainId.ZkSyncMainnet,
-    }));
-  })(),
-  (async () => {
-    const tokens = [];
-    const baseUrl = 'https://explorer-gravity-mainnet-0.t.conduit.xyz/api/v2/tokens';
-    let url = `${baseUrl}`;
-    while (url) {
-      const res = await fetch(url).then((res) => res.json());
-      tokens.push(...(res?.items ?? []));
-
-      const nextParams = new URLSearchParams(res.next_page_params);
-      url = nextParams.get('contract_address_hash') ? `${baseUrl}?${nextParams.toString()}` : undefined;
-    }
-
-    return tokens.map((token: any) => ({
-      symbol: token.symbol,
-      address: token.address,
-      decimals: token.decimals,
-      logoURI: token.icon_url,
-      chainId: ChainId.GravityAlphaMainnet,
-    }));
-  })(),
   fetch('https://raw.githubusercontent.com/izumiFinance/izumi-tokenList/main/build/tokenList.json')
     .then((res) => res.json())
     .then((res) =>
@@ -193,7 +154,7 @@ const getTokenMappingFromTokenLists = async (chainId: number): Promise<TokenMapp
 
     return tokenMapping as TokenMapping;
   } catch (e) {
-    console.log('              TokenList Error:', e.message);
+    console.log('              TokenList Error:', e.message, e);
     return undefined;
   }
 };

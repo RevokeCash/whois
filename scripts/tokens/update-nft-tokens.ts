@@ -92,7 +92,7 @@ const chains: Array<Chain> = [
     chainSlug: 'immutable',
   },
   {
-    chainId: ChainId.HyperliquidEVMTestnet,
+    chainId: 999,
     chainSlug: 'hyperevm',
   },
   {
@@ -111,10 +111,10 @@ const chains: Array<Chain> = [
   //   chainId: ChainId.HyperliquidMainnet,
   //   chainSlug: 'hyperliquid',
   // },
-  // {
-  //   chainId: ChainId.MegaethMainnet,
-  //   chainSlug: 'megaeth',
-  // },
+  {
+    chainId: ChainId.MegaETHMainnet,
+    chainSlug: 'megaeth',
+  },
 ];
 
 const updateNftTokenlist = async ({ chainId, chainSlug, maxPages = 20 }: Chain) => {
@@ -169,7 +169,11 @@ const updateNftTokenlist = async ({ chainId, chainSlug, maxPages = 20 }: Chain) 
 
 const run = async () => {
   for (const chain of chains) {
-    await updateNftTokenlist(chain);
+    try {
+      await updateNftTokenlist(chain);
+    } catch (e) {
+      console.error(`[${chain.chainSlug}] Error:`, e);
+    }
   }
 };
 

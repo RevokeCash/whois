@@ -60,9 +60,10 @@ const importSpamTokens = async ({ chainId, chainSlug }: Chain) => {
 };
 
 const updateSpamTokens = async () => {
-  for (const chain of chains) {
-    await importSpamTokens(chain);
-  }
+  console.log('Skipping spam token update');
+  // for (const chain of chains) {
+  //   await importSpamTokens(chain);
+  // }
 };
 
 updateSpamTokens();

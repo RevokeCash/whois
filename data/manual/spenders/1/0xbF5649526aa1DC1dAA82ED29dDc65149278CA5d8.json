@@ -1,0 +1,11 @@
+{
+  "name": "BarnBridge",
+  "label": "BarnBridge: aUSDT Provider",
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "BarnBridge Governance Attack"
+    }
+  ]
+}

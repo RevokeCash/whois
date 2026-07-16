@@ -1,0 +1,11 @@
+{
+  "name": "BarnBridge",
+  "label": "BarnBridge: aDAI Provider",
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "BarnBridge Governance Attack"
+    }
+  ]
+}
