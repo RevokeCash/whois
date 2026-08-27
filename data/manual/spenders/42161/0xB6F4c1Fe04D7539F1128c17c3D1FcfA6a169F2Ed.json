@@ -1,0 +1,15 @@
+{
+  "name": "Moby Trade",
+  "label": "Moby Trade: RewardTracker",
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "Moby Trade Hack"
+    },
+    {
+      "type": "deprecated",
+      "source": "whois"
+    }
+  ]
+}

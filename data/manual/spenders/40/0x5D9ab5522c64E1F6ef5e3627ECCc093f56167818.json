@@ -6,6 +6,10 @@
       "type": "exploit",
       "source": "whois",
       "data": "2022 Multichain Hack"
+    },
+    {
+      "type": "deprecated",
+      "source": "whois"
     }
   ]
 }

@@ -1,0 +1,11 @@
+{
+  "name": "Sorbet Finance",
+  "label": "Sorbet Finance: G-UNI Router V2",
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "Sorbet Finance Hack"
+    }
+  ]
+}

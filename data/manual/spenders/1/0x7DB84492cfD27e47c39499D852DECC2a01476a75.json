@@ -1,0 +1,15 @@
+{
+  "name": "Lien Finance",
+  "label": "Lien Finance: GeneralizedDotc",
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "Lien Finance Hack"
+    },
+    {
+      "type": "deprecated",
+      "source": "whois"
+    }
+  ]
+}

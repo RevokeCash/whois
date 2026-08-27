@@ -6,6 +6,10 @@
       "type": "exploit",
       "source": "whois",
       "data": "BarnBridge Governance Attack"
+    },
+    {
+      "type": "deprecated",
+      "source": "whois"
     }
   ]
 }

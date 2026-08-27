@@ -1,3 +1,15 @@
 {
-  "riskFactors": []
+  "name": "Magpie",
+  "label": "Magpie: Router V2",
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "Magpie Hack"
+    },
+    {
+      "type": "deprecated",
+      "source": "whois"
+    }
+  ]
 }

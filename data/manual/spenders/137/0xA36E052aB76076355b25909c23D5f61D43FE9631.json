@@ -1,0 +1,15 @@
+{
+  "name": "thirdweb",
+  "label": "thirdweb: Universal Bridge",
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "Thirdweb Bridge Hack"
+    },
+    {
+      "type": "deprecated",
+      "source": "whois"
+    }
+  ]
+}

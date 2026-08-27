@@ -6,6 +6,10 @@
       "type": "exploit",
       "source": "whois",
       "data": "Fisclend Rug Pull"
+    },
+    {
+      "type": "deprecated",
+      "source": "whois"
     }
   ]
 }

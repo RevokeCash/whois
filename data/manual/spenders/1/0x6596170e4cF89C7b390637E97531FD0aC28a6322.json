@@ -1,0 +1,14 @@
+{
+  "name": "Fake World Assets",
+  "label": "Fake World Assets: Pool v1",
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois"
+    },
+    {
+      "type": "deprecated",
+      "source": "whois"
+    }
+  ]
+}

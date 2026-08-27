@@ -6,6 +6,10 @@
       "type": "exploit",
       "source": "whois",
       "data": "NFT Trader Hack"
+    },
+    {
+      "type": "deprecated",
+      "source": "whois"
     }
   ]
 }

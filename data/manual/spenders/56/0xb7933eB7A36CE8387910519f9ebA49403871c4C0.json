@@ -6,6 +6,10 @@
       "type": "exploit",
       "source": "whois",
       "data": "Biswap v3 Migrator Hack"
+    },
+    {
+      "type": "deprecated",
+      "source": "whois"
     }
   ]
 }

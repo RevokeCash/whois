@@ -1,10 +1,5 @@
 {
   "name": "Unizen",
-  "riskFactors": [
-    {
-      "type": "exploit",
-      "source": "whois",
-      "data": "Unizen Hack"
-    }
-  ]
+  "label": "Unizen: Aggregation Router",
+  "riskFactors": []
 }

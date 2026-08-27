@@ -1,6 +1,6 @@
 {
   "name": "StableMagnet",
-  "label": "StableMagnet",
+  "label": "StableMagnet: Swap",
   "riskFactors": [
     {
       "type": "exploit",

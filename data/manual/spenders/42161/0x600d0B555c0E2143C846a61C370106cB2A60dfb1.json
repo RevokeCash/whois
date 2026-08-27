@@ -6,6 +6,10 @@
       "type": "exploit",
       "source": "whois",
       "data": "Concentric Hack"
+    },
+    {
+      "type": "deprecated",
+      "source": "whois"
     }
   ]
 }

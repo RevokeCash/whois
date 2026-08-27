@@ -5,7 +5,11 @@
     {
       "type": "exploit",
       "source": "whois",
-      "data": "Hashflow Whitehat Hack"
+      "data": "Hashflow Hack"
+    },
+    {
+      "type": "deprecated",
+      "source": "whois"
     }
   ]
 }

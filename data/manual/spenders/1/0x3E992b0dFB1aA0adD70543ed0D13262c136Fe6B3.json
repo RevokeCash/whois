@@ -1,6 +1,6 @@
 {
   "name": "Transit Swap",
-  "label": "Transit Swap",
+  "label": "Transit Swap: Router",
   "riskFactors": [
     {
       "type": "exploit",

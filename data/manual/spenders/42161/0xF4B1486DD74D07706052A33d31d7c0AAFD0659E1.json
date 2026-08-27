@@ -1,6 +1,6 @@
 {
   "name": "Radiant",
-  "label": "Radiant",
+  "label": "Radiant: Lending Pool",
   "riskFactors": [
     {
       "type": "exploit",

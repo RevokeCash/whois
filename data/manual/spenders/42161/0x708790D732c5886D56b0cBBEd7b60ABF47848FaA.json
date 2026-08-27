@@ -1,9 +1,15 @@
 {
+  "name": "Orange Finance",
+  "label": "Orange Finance: odpxUSDC-ARB",
   "riskFactors": [
     {
       "type": "exploit",
       "source": "whois",
       "data": "Orange Finance Hack"
+    },
+    {
+      "type": "deprecated",
+      "source": "whois"
     }
   ]
 }

@@ -1,0 +1,10 @@
+{
+  "name": "Aurum Foundation",
+  "label": "Aurum Foundation",
+  "riskFactors": [
+    {
+      "type": "blocklist",
+      "source": "whois"
+    }
+  ]
+}

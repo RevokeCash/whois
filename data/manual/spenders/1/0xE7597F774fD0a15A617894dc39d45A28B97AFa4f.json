@@ -6,6 +6,10 @@
       "type": "exploit",
       "source": "whois",
       "data": "Auctus Hack"
+    },
+    {
+      "type": "deprecated",
+      "source": "whois"
     }
   ]
 }

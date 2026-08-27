@@ -1,5 +1,6 @@
 {
   "name": "Arcadia Finance",
+  "label": "Arcadia Finance: Account",
   "riskFactors": [
     {
       "type": "exploit",

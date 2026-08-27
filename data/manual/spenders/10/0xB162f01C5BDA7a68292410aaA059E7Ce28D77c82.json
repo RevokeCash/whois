@@ -6,6 +6,10 @@
       "type": "exploit",
       "source": "whois",
       "data": "Polynomial Protocol Hack"
+    },
+    {
+      "type": "deprecated",
+      "source": "whois"
     }
   ]
 }

@@ -5,7 +5,11 @@
     {
       "type": "exploit",
       "source": "whois",
-      "data": "ParaSwap Whitehat Hack"
+      "data": "ParaSwap Hack"
+    },
+    {
+      "type": "deprecated",
+      "source": "whois"
     }
   ]
 }

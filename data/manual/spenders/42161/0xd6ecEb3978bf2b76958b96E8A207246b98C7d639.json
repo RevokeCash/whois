@@ -1,9 +1,15 @@
 {
+  "name": "Orange Finance",
+  "label": "Orange Finance: oUSDC-DAI",
   "riskFactors": [
     {
       "type": "exploit",
       "source": "whois",
       "data": "Orange Finance Hack"
+    },
+    {
+      "type": "deprecated",
+      "source": "whois"
     }
   ]
 }

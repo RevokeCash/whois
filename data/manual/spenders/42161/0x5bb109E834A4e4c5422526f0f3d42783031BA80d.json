@@ -1,9 +1,15 @@
 {
+  "name": "Orange Finance",
+  "label": "Orange Finance: osyksushiUSDC-WBTC",
   "riskFactors": [
     {
       "type": "exploit",
       "source": "whois",
       "data": "Orange Finance Hack"
+    },
+    {
+      "type": "deprecated",
+      "source": "whois"
     }
   ]
 }

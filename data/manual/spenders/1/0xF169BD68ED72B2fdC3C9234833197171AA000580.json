@@ -6,6 +6,10 @@
       "type": "exploit",
       "source": "whois",
       "data": "CivTrade Hack"
+    },
+    {
+      "type": "deprecated",
+      "source": "whois"
     }
   ]
 }

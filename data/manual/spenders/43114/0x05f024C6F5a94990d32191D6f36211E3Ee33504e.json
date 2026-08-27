@@ -3,9 +3,8 @@
   "label": "Multichain: Router v6 (AnySwap)",
   "riskFactors": [
     {
-      "type": "exploit",
-      "source": "whois",
-      "data": "2023 Multichain Hack"
+      "type": "deprecated",
+      "source": "whois"
     }
   ]
 }

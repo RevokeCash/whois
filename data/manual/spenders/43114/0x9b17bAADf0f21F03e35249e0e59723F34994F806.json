@@ -8,9 +8,8 @@
       "data": "2022 Multichain Hack"
     },
     {
-      "type": "exploit",
-      "source": "whois",
-      "data": "2023 Multichain Hack"
+      "type": "deprecated",
+      "source": "whois"
     }
   ]
 }

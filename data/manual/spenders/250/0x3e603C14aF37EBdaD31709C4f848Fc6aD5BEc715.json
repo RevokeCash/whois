@@ -1,6 +1,6 @@
 {
   "name": "SushiSwap",
-  "label": "SushiSwap: RouterProcessor 2",
+  "label": "SushiSwap: RouteProcessor2",
   "riskFactors": [
     {
       "type": "exploit",
