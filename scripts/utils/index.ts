@@ -5,9 +5,10 @@ import {
   PutObjectCommandInput,
   S3Client,
 } from '@aws-sdk/client-s3';
+import { ChainId } from '@revoke.cash/chains';
 import { mkdir, readFile, writeFile } from 'fs/promises';
 import path from 'path';
-import { getAddress, isAddress } from 'viem';
+import { Address, getAddress, isAddress, sha256 } from 'viem';
 import walkdir from 'walkdir';
 import { DATA_BASE_PATH } from './constants';
 import { AddressType, Data, DataType, ParsedPath, SpenderData, TokenData } from './types';
@@ -210,6 +211,55 @@ export const copyManualData = async (addressType: AddressType) => {
   );
 };
 
+export const isSupportedAddress = (chainId: number, address: string) => {
+  if (chainId === ChainId.TronMainnet) return isTronAddress(address) || isAddress(address);
+  return isAddress(address);
+};
+
 export const normaliseIdentifier = (identifier: string) => {
-  return isAddress(identifier) ? getAddress(identifier.toLowerCase()) : identifier.toLowerCase();
+  if (isAddress(identifier)) return getAddress(identifier.toLowerCase());
+  // Tron addresses share the EVM address format under the hood, so we store them in their 0x form,
+  // which is also how the revoke.cash frontend handles them internally
+  if (isTronAddress(identifier)) return tronAddressToHex(identifier);
+  return identifier.toLowerCase();
+};
+
+const BASE58_ALPHABET = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
+
+const decodeBase58 = (input: string): Uint8Array => {
+  let decoded = 0n;
+  for (const character of input) {
+    decoded = decoded * 58n + BigInt(BASE58_ALPHABET.indexOf(character));
+  }
+
+  const bytes: number[] = [];
+  while (decoded > 0n) {
+    bytes.unshift(Number(decoded & 0xffn));
+    decoded >>= 8n;
+  }
+
+  return Uint8Array.from(bytes);
+};
+
+export const isTronAddress = (address: string): boolean => {
+  if (!/^T[1-9A-HJ-NP-Za-km-z]{33}$/.test(address)) return false;
+
+  // Decoded Tron addresses are 25 bytes: a 0x41 prefix, a 20-byte address, and a 4-byte double-sha256 checksum
+  const decoded = decodeBase58(address);
+  if (decoded.length !== 25 || decoded[0] !== 0x41) return false;
+
+  const payload = decoded.subarray(0, 21);
+  const checksum = decoded.subarray(21);
+  const hash = sha256(sha256(payload, 'bytes'), 'bytes');
+
+  return checksum.every((byte, index) => byte === hash[index]);
+};
+
+export const tronAddressToHex = (tronAddress: string): Address => {
+  if (!isTronAddress(tronAddress)) throw new Error(`Invalid Tron address: ${tronAddress}`);
+
+  const addressBytes = decodeBase58(tronAddress).subarray(1, 21);
+  const hex = Array.from(addressBytes, (byte) => byte.toString(16).padStart(2, '0')).join('');
+
+  return getAddress(`0x${hex}`);
 };

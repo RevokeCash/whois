@@ -19,7 +19,7 @@ const UNIVERSAL_SPENDERS: UniversalSpenders = {
     chains: [
       // See https://github.com/ProjectOpenSea/seaport
       ChainId.EthereumMainnet,
-      ChainId.Sepolia,
+      ChainId.EthereumSepolia,
       ChainId.PolygonMainnet,
       ChainId.Amoy,
       ChainId.OPMainnet,
@@ -47,7 +47,7 @@ const UNIVERSAL_SPENDERS: UniversalSpenders = {
       // Extra chains (not on GitHub but are supported by OpenSea)
       ChainId.ApeChain,
       ChainId.B3,
-      ChainId.EVMonFlow,
+      ChainId.FlowEVMMainnet,
       ChainId.RoninMainnet,
       ChainId.SeiNetwork,
       ChainId.Shape,

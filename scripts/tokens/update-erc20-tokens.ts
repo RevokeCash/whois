@@ -1,7 +1,7 @@
 import { ChainId, getChainById } from '@revoke.cash/chains';
-import { sleep, writeData } from 'scripts/utils';
+import { isSupportedAddress, normaliseIdentifier, sleep, writeData } from 'scripts/utils';
 import { allChainIds } from 'scripts/utils/constants';
-import { Address, getAddress, isAddress } from 'viem';
+import { getAddress, isAddress } from 'viem';
 import { TokenData, TokenMapping } from '../utils/types';
 
 const isEmpty = (obj?: any) => Object.keys(obj ?? {}).length === 0;
@@ -18,10 +18,16 @@ const getTokenMapping = async (chainId: number): Promise<TokenMapping | undefine
 
 const coingeckoChainsPromise = fetch('https://api.coingecko.com/api/v3/asset_platforms').then((res) => res.json());
 
+// Non-EVM chains have no chain_identifier in CoinGecko's asset platform list, so we map them manually
+const coingeckoPlatformOverrides = {
+  [ChainId.TronMainnet]: 'tron',
+};
+
 const getTokenMappingFromCoinGecko = async (chainId: number): Promise<TokenMapping | undefined> => {
   try {
     const chains = await coingeckoChainsPromise;
-    const coingeckoChainId = chains?.find((chain: any) => chain?.chain_identifier === chainId)?.id;
+    const coingeckoChainId =
+      coingeckoPlatformOverrides[chainId] ?? chains?.find((chain: any) => chain?.chain_identifier === chainId)?.id;
     if (!coingeckoChainId) return undefined;
 
     const url = `https://tokens.coingecko.com/${coingeckoChainId}/all.json`;
@@ -30,8 +36,8 @@ const getTokenMappingFromCoinGecko = async (chainId: number): Promise<TokenMappi
 
     const tokenMapping = {};
     for (const token of tokens) {
-      if (!isAddress(token.address)) continue;
-      tokenMapping[getAddress(token.address)] = token;
+      if (!isSupportedAddress(chainId, token.address)) continue;
+      tokenMapping[normaliseIdentifier(token.address)] = token;
     }
 
     return tokenMapping;
@@ -159,7 +165,7 @@ const getTokenMappingFromTokenLists = async (chainId: number): Promise<TokenMapp
   }
 };
 
-const writeToken = async (token: TokenData, address: Address, chainId: number) => {
+const writeToken = async (token: TokenData, address: string, chainId: number) => {
   // For some reason some tokenlists have 0x0 as a token
   if (address === '0x0000000000000000000000000000000000000000') return;
   if (!token.logoURI || !token.symbol) return;
@@ -181,9 +187,7 @@ const updateErc20Tokenlist = async () => {
 
     console.log(chainString, `Found ${Object.keys(mapping).length} tokens`);
 
-    await Promise.all(
-      Object.entries(mapping).map(([address, token]) => writeToken(token, address as Address, chainId)),
-    );
+    await Promise.all(Object.entries(mapping).map(([address, token]) => writeToken(token, address, chainId)));
 
     // Wait for rate limiting (50/min)
     await sleep(2000);

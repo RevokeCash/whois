@@ -104,7 +104,7 @@ const chains: Array<Chain> = [
     chainSlug: 'bsc',
   },
   {
-    chainId: ChainId.MonadMainnet,
+    chainId: ChainId.Monad,
     chainSlug: 'monad',
   },
   // {
