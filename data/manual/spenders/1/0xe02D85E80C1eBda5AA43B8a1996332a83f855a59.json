@@ -1,0 +1,10 @@
+{
+  "name": "Gondi",
+  "label": "Gondi: Purchase Bundler v3.1 (old)",
+  "riskFactors": [
+    {
+      "type": "deprecated",
+      "source": "whois"
+    }
+  ]
+}

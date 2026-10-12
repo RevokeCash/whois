@@ -1,0 +1,10 @@
+{
+  "name": "Gondi",
+  "label": "Gondi: User Vault v1",
+  "riskFactors": [
+    {
+      "type": "deprecated",
+      "source": "whois"
+    }
+  ]
+}
