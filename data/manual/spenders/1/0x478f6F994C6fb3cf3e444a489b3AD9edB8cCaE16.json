@@ -1,0 +1,10 @@
+{
+  "name": "Gondi",
+  "label": "Gondi: Multi Source Loan v2",
+  "riskFactors": [
+    {
+      "type": "deprecated",
+      "source": "whois"
+    }
+  ]
+}
