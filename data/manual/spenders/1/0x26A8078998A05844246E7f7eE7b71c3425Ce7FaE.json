@@ -1,0 +1,10 @@
+{
+  "name": "Blend",
+  "label": "Blur: Blend (Prototype)",
+  "riskFactors": [
+    {
+      "type": "deprecated",
+      "source": "whois"
+    }
+  ]
+}

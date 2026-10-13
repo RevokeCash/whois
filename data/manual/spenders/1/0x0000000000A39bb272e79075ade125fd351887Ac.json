@@ -1,0 +1,10 @@
+{
+  "name": "Blur",
+  "label": "Blur: Pool",
+  "riskFactors": [
+    {
+      "type": "deprecated",
+      "source": "whois"
+    }
+  ]
+}

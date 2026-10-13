@@ -1,0 +1,10 @@
+{
+  "name": "Blend",
+  "label": "Blur: Blend V2 (Staging)",
+  "riskFactors": [
+    {
+      "type": "deprecated",
+      "source": "whois"
+    }
+  ]
+}

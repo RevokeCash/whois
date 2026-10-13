@@ -1,0 +1,10 @@
+{
+  "name": "Blur",
+  "label": "Blur: v2 (Staging)",
+  "riskFactors": [
+    {
+      "type": "deprecated",
+      "source": "whois"
+    }
+  ]
+}

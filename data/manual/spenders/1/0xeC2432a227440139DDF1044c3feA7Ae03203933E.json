@@ -1,0 +1,10 @@
+{
+  "name": "Blur",
+  "label": "Blur: Holding",
+  "riskFactors": [
+    {
+      "type": "deprecated",
+      "source": "whois"
+    }
+  ]
+}

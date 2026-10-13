@@ -1,0 +1,10 @@
+{
+  "name": "Blur",
+  "label": "Blur: Aggregator",
+  "riskFactors": [
+    {
+      "type": "deprecated",
+      "source": "whois"
+    }
+  ]
+}
