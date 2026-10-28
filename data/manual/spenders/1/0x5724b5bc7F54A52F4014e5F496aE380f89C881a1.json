@@ -1,0 +1,11 @@
+{
+  "name": "Swap0x",
+  "label": "Swap0x",
+  "riskFactors": [
+    {
+      "type": "exploit",
+      "source": "whois",
+      "data": "Swap0x Hack"
+    }
+  ]
+}
