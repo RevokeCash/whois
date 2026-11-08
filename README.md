@@ -1,3 +1,5 @@
+**Note:** this repository has internally be replaced by a new label database, and therefore this repository is archived. If you want to add labels to Revoke.cash, please open an issue on the main repository.
+
 # @revoke.cash/whois
 
 This repository contains scripts to generate token and spender data for the [revoke.cash](https://revoke.cash) website. It also contains a list of manual labels that gets merged with the generated data.
